@@ -417,8 +417,8 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
 
 "@rushstack/eslint-patch@^1.3.3":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.7.0.tgz#b5bc1e081428794f6a4d239707b359404be35ce2"
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.7.1.tgz#29e6926204b982721ff721240807527309825a1f"
 
 "@swc/helpers@0.5.2":
   version "0.5.2"
@@ -426,13 +426,26 @@
   dependencies:
     tslib "^2.4.0"
 
+"@types/create-react-class@*":
+  version "15.6.7"
+  resolved "https://registry.yarnpkg.com/@types/create-react-class/-/create-react-class-15.6.7.tgz#04c850b0fa88e061b0be7d8a7fea63f01adcc758"
+  dependencies:
+    "@types/react" "*"
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
 
+"@types/material-ui@^0.21.16":
+  version "0.21.16"
+  resolved "https://registry.yarnpkg.com/@types/material-ui/-/material-ui-0.21.16.tgz#19697ce83af2dc03ed25321e7d2158f2d6d57125"
+  dependencies:
+    "@types/react" "*"
+    "@types/react-addons-linked-state-mixin" "*"
+
 "@types/node@^20.11.5":
-  version "20.11.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.5.tgz#be10c622ca7fcaa3cf226cf80166abc31389d86e"
+  version "20.11.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.6.tgz#6adf4241460e28be53836529c033a41985f85b6e"
   dependencies:
     undici-types "~5.26.4"
 
@@ -443,6 +456,13 @@
 "@types/prop-types@*", "@types/prop-types@^15.7.11":
   version "15.7.11"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.11.tgz#2596fb352ee96a1379c657734d4b913a613ad563"
+
+"@types/react-addons-linked-state-mixin@*":
+  version "0.14.27"
+  resolved "https://registry.yarnpkg.com/@types/react-addons-linked-state-mixin/-/react-addons-linked-state-mixin-0.14.27.tgz#8f2a31b9d988ce430775983bbb0d0965e8b537a3"
+  dependencies:
+    "@types/create-react-class" "*"
+    "@types/react" "*"
 
 "@types/react-dom@^18.2.18":
   version "18.2.18"
@@ -928,8 +948,8 @@ eastasianwidth@^0.2.0:
   resolved "https://registry.yarnpkg.com/eastasianwidth/-/eastasianwidth-0.2.0.tgz#696ce2ec0aa0e6ea93a397ffcf24aa7840c827cb"
 
 electron-to-chromium@^1.4.601:
-  version "1.4.642"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.642.tgz#eb380fa8b58e515c641d642ba452fa2c453c2e4f"
+  version "1.4.643"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.643.tgz#081a20c5534db91e66ef094f68624960f674768f"
 
 emoji-regex@^8.0.0:
   version "8.0.0"
