@@ -22,7 +22,7 @@ export default function Login() {
   const onSubmit = (data: FormData) => {
     console.log(data)
     // Process your form submission here
-    window.location.href = '/dashboard'
+    window.location.href = '/board'
   }
 
   return (
