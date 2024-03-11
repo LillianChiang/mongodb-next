@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react'
-import { PiLockKeyDuotone } from 'react-icons/pi'
-import { useForm, Controller } from 'react-hook-form'
+import React, { useState } from 'react';
+import { PiLockKeyDuotone } from 'react-icons/pi';
+import { useForm, Controller } from 'react-hook-form';
 
 interface FormData {
-  name: string
-  email: string
-  password: string
+  name: string;
+  email: string;
+  password: string;
 }
 
 export default function Login() {
@@ -16,58 +16,58 @@ export default function Login() {
     formState: { errors },
     handleSubmit,
     control,
-  } = useForm<FormData>({ mode: 'onChange' })
-  const [error, setError] = useState<boolean>(false)
+  } = useForm<FormData>({ mode: 'onChange' });
+  const [error, setError] = useState<boolean>(false);
 
   const onSubmit = (data: FormData) => {
-    console.log(data)
+    console.log(data);
     // Process your form submission here
-    window.location.href = '/dashboard'
-  }
+    window.location.href = '/dashboard';
+  };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-md mx-auto mt-8 p-6 bg-white rounded shadow-md"
+      className="mx-auto mt-8 max-w-md rounded bg-white p-6 shadow-md"
     >
       <div className="flex justify-center">
         <PiLockKeyDuotone className="text-purple-600" size={40} />
       </div>
-      <h1 className="text-4xl text-black-400 flex justify-center">Sign in</h1>
+      <h1 className="text-black-400 flex justify-center text-4xl">Sign in</h1>
       <div className="mb-4">
         <label
           htmlFor="email"
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="mb-2 block text-sm font-bold text-gray-700"
         >
           Email
         </label>
         <input
           id="email"
           {...register('email', { required: true, maxLength: 30 })}
-          className={`border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.email ? 'border-red-500' : ''}`}
+          className={`focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 focus:outline-none ${errors.email ? 'border-red-500' : ''}`}
         />
         {errors.email && (
-          <span className="text-red-500 text-xs mt-1">This is required</span>
+          <span className="mt-1 text-xs text-red-500">This is required</span>
         )}
       </div>
 
       <div className="mb-4">
         <label
           htmlFor="password"
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="mb-2 block text-sm font-bold text-gray-700"
         >
           Password
         </label>
         <input
           id="password"
           {...register('password', { required: true, maxLength: 30 })}
-          className={`border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.password ? 'border-red-500' : ''}`}
+          className={`focus:shadow-outline w-full rounded border px-3 py-2 leading-tight text-gray-700 focus:outline-none ${errors.password ? 'border-red-500' : ''}`}
         />
         {errors.password && (
-          <span className="text-red-500 text-xs mt-1">This is required</span>
+          <span className="mt-1 text-xs text-red-500">This is required</span>
         )}
       </div>
-      <div className="flex items-center justify-left">
+      <div className="justify-left flex items-center">
         <Controller
           name="rememberMe"
           control={control}
@@ -85,7 +85,7 @@ export default function Login() {
           Remember me
         </label>
       </div>
-      <div className="flex justify-between mb-8">
+      <div className="mb-8 flex justify-between">
         <a href="#" className="text-left">
           Forgot password?
         </a>
@@ -97,11 +97,11 @@ export default function Login() {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex-grow"
+          className="focus:shadow-outline flex-grow rounded bg-blue-600 px-4 py-2 font-bold text-white focus:outline-none"
         >
           SIGN IN
         </button>
       </div>
     </form>
-  )
+  );
 }
