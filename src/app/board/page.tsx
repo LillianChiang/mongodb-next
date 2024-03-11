@@ -2,26 +2,23 @@
 
 import { Navbar } from './Navbar'
 import Title from '../components/Title'
-import React from 'react'
+import React, { useState } from 'react';
 
 const Page = () => {
-  const [loading, setLoading] = React.useState(false)
-  const [noRecords, setNoRecords] = React.useState(false)
+  const [isLoading, setLoading] = useState([])
+  const [records, setRecords] = useState([])
 
   const handleSearch = () => {
-    setLoading(true)
-
+    setLoading([])
     // Simulate a search operation (replace this with your actual search logic)
     setTimeout(() => {
-      setLoading(false)
-
-      // Simulate no records found
-      setNoRecords(true) // Set to true if no records are found
+      setLoading([])
+    
     }, 2000)
   }
 
   const resetSearch = () => {
-    setNoRecords(false) // Reset noRecords state when performing a new search
+    setRecords([]) // Reset noRecords state when performing a new search
   }
 
   return (
@@ -48,12 +45,14 @@ const Page = () => {
             <button
               className="px-4 py-2 bg-blue-600 text-white rounded"
               onClick={handleSearch}
-              disabled={loading}
+              disabled={isLoading}
+
+
             >
-              {loading ? '搜尋中...' : '搜尋'}
+              {isLoading ? '搜尋中...' : '搜尋'}
             </button>
           </div>
-          {noRecords && (
+          {records.length === 0 && (
             <div className="text-red-500 mt-2">
               opps, no records
               <button className="ml-2" onClick={resetSearch}>

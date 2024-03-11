@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { PiLockKeyDuotone } from 'react-icons/pi'
 import { useForm, Controller } from 'react-hook-form'
+import { useRouter } from 'next/router';
 
 interface FormData {
   name: string
@@ -20,11 +21,12 @@ export default function Login() {
   const [error, setError] = useState<boolean>(false)
 
   const onSubmit = (data: FormData) => {
-    console.log(data)
+    console.log(data);
     // Process your form submission here
-    window.location.href = '/board'
+    const router = useRouter();
+    router.push('/board');
   }
-
+  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
