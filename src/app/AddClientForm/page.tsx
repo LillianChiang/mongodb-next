@@ -6,12 +6,13 @@ import { Navbar } from '../board/Navbar'
 
 const AddClientForm: React.FC = () => {
   const [formData, setFormData] = useState({
-    title: '',
-    therapist: '',
-    treatment: '',
-    analysis: '',
-    treatmentContent: '',
-    fee: 0,
+    date: '',
+    name: '',
+    phoneNumber: '',
+    address: '',
+    idNumber: '',
+    birthday: 0,
+    mobileNumber: '',
     notes: '',
   })
 
@@ -36,108 +37,117 @@ const AddClientForm: React.FC = () => {
       <div className="w-4/4">
         <div className="main-content">
           <h1>新增個案資料</h1>
-        
-        <form>
-          <label htmlFor="title">Title:</label>
-          <br />
-          <input
-            type="date"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            className="input-field"
-          />
-          <br />
-          <br />
 
-          <label htmlFor="therapist">治療師:</label>
-          <br />
-          <input
-            type="text"
-            id="therapist"
-            name="therapist"
-            value={formData.therapist}
-            onChange={handleChange}
-            className="input-field"
-          />
-          <br />
-          <br />
+          <form>
+            <label htmlFor="date">日期:</label>
+            <br />
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              className="input-field"
+            />
+            <br />
+            <br />
 
-          <label htmlFor="treatment">治療項目:</label>
-          <br />
-          <input
-            type="text"
-            id="treatment"
-            name="treatment"
-            value={formData.treatment}
-            onChange={handleChange}
-            className="input-field"
-          />
-          <br />
-          <br />
+            <label htmlFor="name">姓名:</label>
+            <br />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="input-field"
+            />
+            <br />
+            <br />
 
-          <label htmlFor="analysis">分析內容:</label>
-          <br />
-          <textarea
-            id="analysis"
-            name="analysis"
-            value={formData.analysis}
-            onChange={handleChange}
-            rows={4}
-            cols={50}
-            className="input-field"
-          />
-          <br />
-          <br />
+            <label htmlFor="phoneNumber">電話號碼:</label>
+            <br />
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              className="input-field"
+            />
+            <br />
+            <br />
 
-          <label htmlFor="treatmentContent">治療內容:</label>
-          <br />
-          <textarea
-            id="treatmentContent"
-            name="treatmentContent"
-            value={formData.treatmentContent}
-            onChange={handleChange}
-            rows={4}
-            cols={50}
-            className="input-field"
-          />
-          <br />
-          <br />
+            <label htmlFor="address">地址:</label>
+            <br />
+            <textarea
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              rows={4}
+              cols={50}
+              className="input-field"
+            />
+            <br />
+            <br />
 
-          <label htmlFor="fee">治療費用:</label>
-          <br />
-          <input
-            type="number"
-            id="fee"
-            name="fee"
-            value={formData.fee}
-            onChange={handleChange}
-            className="input-field"
-          />
-          <br />
-          <br />
+            <label htmlFor="idNumber">身分證號:</label>
+            <br />
+            <textarea
+              id="idNumber"
+              name="idNumber"
+              value={formData.idNumber}
+              onChange={handleChange}
+              className="input-field"
+            />
+            <br />
+            <br />
 
-          <label htmlFor="notes">註明:</label>
-          <br />
-          <textarea
-            id="notes"
-            name="notes"
-            value={formData.notes}
-            onChange={handleChange}
-            rows={4}
-            cols={50}
-            className="input-field"
-          />
-          <br />
-          <br />
+            <label htmlFor="birthday">生日:</label>
+            <br />
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              className="input-field"
+            />
+            <br />
+            <br />
+            <label htmlFor="phoneNumber">手機號碼:</label>
+            <br />
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              className="input-field"
+            />
+            <br />
+            <br />
 
-          <input type="submit" value="Submit" className="btn-primary" />
-        </form>
+            <label htmlFor="notes">註明:</label>
+            <br />
+            <textarea
+              id="notes"
+              name="notes"
+              value={formData.notes}
+              onChange={handleChange}
+              rows={4}
+              cols={50}
+              className="input-field"
+            />
+            <br />
+            <br />
+
+            <input type="submit" value="Submit" className="btn-primary" />
+          </form>
+        </div>
       </div>
-      </div>
-      </div>
-    
+    </div>
   )
 }
 
