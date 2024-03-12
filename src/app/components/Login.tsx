@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PiLockKeyDuotone } from 'react-icons/pi';
 import { useForm, Controller } from 'react-hook-form';
-
+import { useRouter } from 'next/navigation';
 interface FormData {
   name: string;
   email: string;
@@ -19,16 +19,19 @@ export default function Login() {
   } = useForm<FormData>({ mode: 'onChange' });
   const [error, setError] = useState<boolean>(false);
 
-  const onSubmit = (data: FormData) => {
+  const router = useRouter()
+
+  const onSubmit = (data) => {
+    // Handle form submission here
     console.log(data);
-    // Process your form submission here
-    window.location.href = '/dashboard';
+    // Redirect to the board page
+    router.push('/board');
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto mt-8 max-w-md rounded bg-white p-6 shadow-md"
+      className="max-w-md mx-auto mt-8 p-6 bg-white rounded shadow-md"
+       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex justify-center">
         <PiLockKeyDuotone className="text-purple-600" size={40} />
