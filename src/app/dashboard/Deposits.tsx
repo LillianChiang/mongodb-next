@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import Link from '@mui/material/Link'
-import Typography from '@mui/material/Typography'
-import Title from './Title'
+import React, { useState } from 'react';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import Title from './Title';
 
 export default function Deposits() {
   return (
@@ -19,5 +19,5 @@ export default function Deposits() {
         </Link>
       </div>
     </React.Fragment>
-  )
+  );
 }

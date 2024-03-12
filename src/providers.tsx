@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-import { StyledEngineProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
+import { StyledEngineProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 interface ProvidersProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const Providers = ({ children }: ProvidersProps) => {
@@ -13,7 +13,7 @@ const Providers = ({ children }: ProvidersProps) => {
       <CssBaseline />
       {children}
     </StyledEngineProvider>
-  )
-}
+  );
+};
 
-export default Providers
+export default Providers;

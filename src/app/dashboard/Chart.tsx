@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { useTheme } from '@mui/material/styles'
-import { LineChart, axisClasses } from '@mui/x-charts'
-import { ChartsTextStyle } from '@mui/x-charts/ChartsText'
-import Title from './Title'
+import React, { useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import { LineChart, axisClasses } from '@mui/x-charts';
+import { ChartsTextStyle } from '@mui/x-charts/ChartsText';
+import Title from './Title';
 
 // Generate Sales Data
 function createData(
   time: string,
   amount?: number,
 ): { time: string; amount: number | null } {
-  return { time, amount: amount ?? null }
+  return { time, amount: amount ?? null };
 }
 
 const data = [
@@ -22,10 +22,10 @@ const data = [
   createData('18:00', 2400),
   createData('21:00', 2400),
   createData('24:00'),
-]
+];
 
 export default function Chart() {
-  const theme = useTheme()
+  const theme = useTheme();
 
   return (
     <React.Fragment>
@@ -80,5 +80,5 @@ export default function Chart() {
         />
       </div>
     </React.Fragment>
-  )
+  );
 }

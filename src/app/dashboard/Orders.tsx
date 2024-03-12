@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import Link from '@mui/material/Link'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Title from './Title'
+import React, { useState } from 'react';
+import Link from '@mui/material/Link';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Title from './Title';
 
 // Generate Order Data
 function generateOrderData() {
@@ -50,7 +50,7 @@ function generateOrderData() {
       'VISA ⠀•••• 5919',
       212.79,
     ),
-  ]
+  ];
 }
 
 // Create Order Object
@@ -62,11 +62,11 @@ function createData(
   paymentMethod: string,
   amount: number,
 ) {
-  return { id, date, name, shipTo, paymentMethod, amount }
+  return { id, date, name, shipTo, paymentMethod, amount };
 }
 
 export default function Orders() {
-  const rows = generateOrderData()
+  const rows = generateOrderData();
 
   return (
     <React.Fragment>
@@ -97,5 +97,5 @@ export default function Orders() {
         See more orders
       </Link>
     </React.Fragment>
-  )
+  );
 }
