@@ -1,19 +1,22 @@
 'use client'
 
+import { useState } from 'react'
 import { Navbar } from './Navbar'
 import Title from '../components/Title'
-import React, { useState } from 'react';
+
+// Import useClient here if it's not already imported from a different module
+// import useClient from 'wherever/useClient';
 
 const Page = () => {
-  const [isLoading, setLoading] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const [records, setRecords] = useState([])
 
   const handleSearch = () => {
-    setLoading([])
+    setIsLoading(true)
     // Simulate a search operation (replace this with your actual search logic)
     setTimeout(() => {
-      setLoading([])
-    
+      setIsLoading(false) // Set loading to false after search operation
+      setRecords([]) // Set the records with the search results
     }, 2000)
   }
 
@@ -40,14 +43,11 @@ const Page = () => {
               type="text"
               placeholder="輸入關鍵字"
               className="p-2 rounded border border-gray-300 resize-y"
-              style={{ resize: 'vertical' }}
             />
             <button
               className="px-4 py-2 bg-blue-600 text-white rounded"
               onClick={handleSearch}
               disabled={isLoading}
-
-
             >
               {isLoading ? '搜尋中...' : '搜尋'}
             </button>
@@ -60,7 +60,6 @@ const Page = () => {
               </button>
             </div>
           )}
-          {/* Add more content as needed */}
         </div>
       </div>
     </div>

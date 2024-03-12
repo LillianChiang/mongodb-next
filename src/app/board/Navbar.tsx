@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import AddIcon from '@mui/icons-material/Add'
 import SettingsIcon from '@mui/icons-material/Settings'
 import Link from 'next/link'
-import AddClientForm from '../AddClientForm/page'
+
 
 export function Navbar() {
   return (
