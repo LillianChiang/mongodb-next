@@ -19,15 +19,12 @@ export default function Login() {
     control,
   } = useForm<FormData>({ mode: 'onChange' });
   const [error, setError] = useState<boolean>(false);
-
   const router = useRouter();
 
-  const onSubmit = () => {
-    // Handle form submission here
-
+  const onSubmit = (data: FormData) => {
     console.log(data);
-    // Redirect to the board page
-    router.push('/board');
+    // Handle form submission here
+    router.push('/board'); // Redirect to the board page
   };
 
   return (
@@ -82,7 +79,7 @@ export default function Login() {
               type="checkbox"
               id="remember"
               {...field}
-              className="form-checkbox text-purple-600 h-5 w-5"
+              className="form-checkbox h-5 w-5 text-purple-600"
             />
           )}
         />

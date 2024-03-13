@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react'
-import Title from '../components/Title'
-import { Navbar } from '../board/Navbar'
+import React, { useState } from 'react';
+import Title from '../components/Title';
+import { Navbar } from '../board/Navbar';
 
 const addClientForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -15,23 +15,22 @@ const addClientForm: React.FC = () => {
     mobileNumber: '',
 
     notes: '',
-  })
+  });
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
   ) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   return (
-
-    <div className="container flex justify-center items-start">
+    <div className="container flex items-start justify-center">
       <Title />
       <div className="w-1/4">
         <Navbar />
@@ -130,7 +129,6 @@ const addClientForm: React.FC = () => {
             />
             <br />
             <br />
-
             <label htmlFor="notes">註明:</label>
             <br />
             <textarea
@@ -144,13 +142,12 @@ const addClientForm: React.FC = () => {
             />
             <br />
             <br />
-
             <input type="submit" value="Submit" className="btn-primary" />
           </form>
         </div>
-</div>
-</div>
- );
+      </div>
+    </div>
+  );
 };
 
 export default addClientForm;
