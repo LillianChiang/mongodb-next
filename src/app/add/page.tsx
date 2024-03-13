@@ -7,7 +7,7 @@ const Add = () => {
   const router = useRouter()
 
   const handleCancel = () => {
-    router.back() // Navigate back to the previous page
+    router.back() // /Navigate back to the previous page
   }
 
   return (
