@@ -22,7 +22,7 @@ export default function Login() {
 
   const router = useRouter();
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     // Handle form submission here
 
     console.log(data);
