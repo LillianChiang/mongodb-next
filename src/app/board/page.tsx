@@ -60,7 +60,7 @@ const Page = () => {
           )}
         </div>
 
-        <Clients />
+        <Clients/>
       </div>
     </div>
   );
