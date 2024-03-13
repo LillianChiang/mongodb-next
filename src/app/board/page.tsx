@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Navbar } from './Navbar'
 import Title from '../components/Title'
+import  Clients  from '../clientData/Clients'
 
 
 const Page = () => {
@@ -23,7 +24,7 @@ const Page = () => {
   }
 
   return (
-    <div className="container flex justify-center items-center">
+    <div className="container flex justify-center items-start">
       <Title />
       <div className="w-1/4">
         <Navbar />
@@ -59,7 +60,9 @@ const Page = () => {
             </div>
           )}
         </div>
+        <Clients/>
       </div>
+      
     </div>
   )
 }

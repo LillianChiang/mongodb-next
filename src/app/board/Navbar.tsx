@@ -8,7 +8,7 @@ import Link from 'next/link'
 export function Navbar() {
   return (
     <React.Fragment>
-      <Link href="/AddClientForm">
+      <Link href="/addClientForm">
         <ListItemButton>
           <ListItemIcon>
             <AddIcon />
