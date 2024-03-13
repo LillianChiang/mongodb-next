@@ -13,7 +13,7 @@ const Add = () => {
   return (
     <div className="container flex justify-center items-start">
       <div className="mt-4 border border-gray-300 p-10">
-        <h2 className="text-lg font-semibold mb-2">治療登錄 (新增)</h2>
+        <h2 className="text-lg font-semibold mb-2">治療登錄 (新增) </h2>
         <form>
           <div className="mb-4">
             <label className="block mb-1">病歷號碼:</label>
