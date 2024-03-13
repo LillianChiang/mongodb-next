@@ -1,9 +1,9 @@
-import React from 'react'
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
-import AddIcon from '@mui/icons-material/Add'
-import SettingsIcon from '@mui/icons-material/Settings'
-import Link from 'next/link'
+import React from 'react';
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import AddIcon from '@mui/icons-material/Add';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Link from 'next/link';
 
 export function Navbar() {
   return (
@@ -33,5 +33,5 @@ export function Navbar() {
         </ListItemButton>
       </Link>
     </React.Fragment>
-  )
+  );
 }

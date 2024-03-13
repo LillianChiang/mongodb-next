@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Title from '../components/Title'
 import { Navbar } from '../board/Navbar'
 
-const AddClientForm: React.FC = () => {
+const addClientForm: React.FC = () => {
   const [formData, setFormData] = useState({
     date: '',
     name: '',
@@ -13,6 +13,7 @@ const AddClientForm: React.FC = () => {
     idNumber: '',
     birthday: 0,
     mobileNumber: '',
+
     notes: '',
   })
 
@@ -29,6 +30,7 @@ const AddClientForm: React.FC = () => {
   }
 
   return (
+
     <div className="container flex justify-center items-start">
       <Title />
       <div className="w-1/4">
@@ -146,9 +148,9 @@ const AddClientForm: React.FC = () => {
             <input type="submit" value="Submit" className="btn-primary" />
           </form>
         </div>
-      </div>
-    </div>
-  )
-}
+</div>
+</div>
+ );
+};
 
-export default AddClientForm
+export default addClientForm;
