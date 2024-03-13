@@ -5,6 +5,7 @@ import { Navbar } from './Navbar'
 import Title from '../components/Title'
 
 
+
 const Page = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [records, setRecords] = useState([])
@@ -64,4 +65,6 @@ const Page = () => {
   )
 }
 
+
 export default Page
+

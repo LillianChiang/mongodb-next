@@ -36,7 +36,7 @@ const AddClientForm: React.FC = () => {
       <div className="w-4/4">
         <div className="main-content">
           <h1>新增個案資料</h1>
-        
+
         <form>
           <label htmlFor="title">Title:</label>
           <br />
@@ -135,9 +135,8 @@ const AddClientForm: React.FC = () => {
           <input type="submit" value="Submit" className="btn-primary" />
         </form>
       </div>
-      </div>
-      </div>
-    
+
+    </div>
   )
 }
 
