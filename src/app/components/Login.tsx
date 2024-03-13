@@ -82,7 +82,7 @@ export default function Login() {
               type="checkbox"
               id="remember"
               {...field}
-              className="form-checkbox text-purple-650 h-5 w-5"
+              className="form-checkbox text-purple-600 h-5 w-5"
             />
           )}
         />
