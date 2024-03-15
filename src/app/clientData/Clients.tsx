@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import add from '../add/page'
-import edit from '../edit/page'
+import React, { useState } from 'react';
+import add from '../TreatmentForm/page';
+import edit from '../EditTreatmentForm/page';
 import { useRouter } from 'next/navigation';
 
 const Clients = () => {
@@ -16,31 +16,31 @@ const Clients = () => {
       mobileNumber: '098-765-4321',
     },
     // Add more client objects as needed
-  ])
+  ]);
 
   const handleAddClient = () => {
-    router.push('/add');
-  }
+    router.push('/TreatmentForm');
+  };
 
   const handleEditClient = () => {
-    router.push('/edit');
-  }
+    router.push('/EditTreatmentForm');
+  };
 
   const handleViewInfo = () => {
     // Logic for viewing detailed information of a client
-  }
+  };
 
   const handleDeleteClient = () => {
     // Logic for deleting a client
-  }
+  };
 
   // Reverse the order of the clients array
-  const reversedClients = [...clients].reverse()
+  const reversedClients = [...clients].reverse();
 
   return (
-    <div className="bg-purple-100 p-6 rounded-lg w-3/4">
-      <h1 className="text-2xl mb-4">Clients Information</h1>
-      <table className="w-3/4 mb-4">
+    <div className="w-3/4 rounded-lg bg-purple-100 p-6">
+      <h1 className="mb-4 text-2xl">Clients Information</h1>
+      <table className="mb-4 w-3/4">
         <tbody>
           {reversedClients.map((client) => (
             <React.Fragment key={client.id}>
@@ -76,20 +76,20 @@ const Clients = () => {
                 <td>
                   <button
                     onClick={handleAddClient}
-                    className="bg-yellow rounded-md mr-2 px-2 py-1"
+                    className="bg-yellow mr-2 rounded-md px-2 py-1"
                   >
                     Add
                   </button>
 
                   <button
                     onClick={handleEditClient}
-                    className="bg-blue rounded-md mr-2 px-2 py-1"
+                    className="bg-blue mr-2 rounded-md px-2 py-1"
                   >
                     Edit
                   </button>
                   <button
                     onClick={handleViewInfo}
-                    className="bg-pink rounded-md mr-2 px-2 py-1"
+                    className="bg-pink mr-2 rounded-md px-2 py-1"
                   >
                     View Info
                   </button>
@@ -106,7 +106,7 @@ const Clients = () => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default Clients
+export default Clients;

@@ -1,45 +1,46 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Navbar } from '../board/Navbar'
-import Title from '../components/Title'
+import { useState } from 'react';
+import { Navbar } from '../board/Navbar';
+import Title from '../components/Title';
+import { ChangeEvent } from 'react';
 
 export default function ManagementInterface() {
-  const [selectedDate, setSelectedDate] = useState('')
-  const [selectedReportType, setSelectedReportType] = useState('')
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedReportType, setSelectedReportType] = useState('');
   const [selectedItems, setSelectedItems] = useState({
     number: false,
     therapist: false,
     client: false,
     therapyCost: false,
     productSales: false,
-  })
+  });
 
-  const handleDateChange = (event: any) => {
-    setSelectedDate(event.target.value)
-  }
+  const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSelectedDate(event.target.value);
+  };
 
-  const handleReportTypeChange = (event: any) => {
-    setSelectedReportType(event.target.value)
-  }
+  const handleReportTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSelectedReportType(event.target.value);
+  };
 
-  const handleItemChange = (event: any) => {
-    const { name, checked } = event.target
-    setSelectedItems({ ...selectedItems, [name]: checked })
-  }
+  const handleItemChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target;
+    setSelectedItems({ ...selectedItems, [name]: checked });
+  };
 
   const handleSearch = () => {
     // Perform search operation based on selectedDate, selectedReportType, and selectedItems
-    console.log('Search button clicked')
-  }
+    console.log('Search button clicked');
+  };
 
   const handleExport = () => {
     // Perform export operation based on selectedDate, selectedReportType, and selectedItems
-    console.log('Export button clicked')
-  }
+    console.log('Export button clicked');
+  };
 
   return (
-    <div className="container flex justify-center items-start">
+    <div className="container flex items-start justify-center">
       <Title />
       <div className="w-1/4">
         <Navbar />
@@ -48,25 +49,25 @@ export default function ManagementInterface() {
         <div className="main-content">
           <h1>管理介面</h1>
 
-          <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+          <div className="mt-4 rounded-lg bg-gray-100 p-4">
             <h2 className="text-xl font-semibold">當日業績報表</h2>
-            <div className="flex items-center mt-4">
+            <div className="mt-4 flex items-center">
               <label className="mr-4">選擇日期:</label>
               <input
                 type="date"
                 value={selectedDate}
                 onChange={handleDateChange}
-                className="border border-gray-300 rounded-md px-2 py-1"
+                className="rounded-md border border-gray-300 px-2 py-1"
               />
               <button
                 onClick={handleSearch}
-                className="ml-4 bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600"
+                className="ml-4 rounded-md bg-blue-500 px-4 py-1 text-white hover:bg-blue-600"
               >
                 查詢
               </button>
               <button
                 onClick={handleExport}
-                className="ml-2 bg-green-500 text-white px-4 py-1 rounded-md hover:bg-green-600"
+                className="ml-2 rounded-md bg-green-500 px-4 py-1 text-white hover:bg-green-600"
               >
                 匯出
               </button>
@@ -76,7 +77,7 @@ export default function ManagementInterface() {
               <select
                 value={selectedReportType}
                 onChange={handleReportTypeChange}
-                className="border border-gray-300 rounded-md px-2 py-1"
+                className="rounded-md border border-gray-300 px-2 py-1"
               >
                 <option value="">請選擇</option>
                 <option value="dailyPerformance">當日業績表</option>
@@ -145,5 +146,5 @@ export default function ManagementInterface() {
         </div>
       </div>
     </div>
-  )
+  );
 }
