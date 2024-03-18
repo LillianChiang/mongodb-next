@@ -8,6 +8,7 @@ import Clients from '../clientData/Clients';
 const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [records, setRecords] = useState([]);
+  
 
   const handleSearch = () => {
     setIsLoading(true);
@@ -22,6 +23,8 @@ const Page = () => {
     setRecords([]); // Reset noRecords state when performing a new search
   };
 
+ 
+
   return (
     <div className="container flex items-start justify-center">
       <Title />
@@ -31,6 +34,7 @@ const Page = () => {
       <div className="w-4/4">
         <div className="main-content">
           <h1>病歷查詢</h1>
+          
           <div className="search-container flex">
             <select className="mr-2 resize-y rounded border border-gray-300 p-2">
               <option value="patientID">病歷號碼</option>
@@ -60,7 +64,7 @@ const Page = () => {
           )}
         </div>
 
-        <Clients/>
+        <Clients />
       </div>
     </div>
   );
