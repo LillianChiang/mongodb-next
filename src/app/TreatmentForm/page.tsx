@@ -17,7 +17,6 @@ const AddTreatmentRecord = () => {
   const [date, setDate] = useState('');
   const [currentTreatmentContent, setCurrentTreatmentContent] = useState('');
 
-
   const handleCancel = () => {
     router.back();
   };
@@ -31,7 +30,7 @@ const AddTreatmentRecord = () => {
   return (
     <div className="container mx-auto flex items-start justify-center">
       <div className="mt-4 border border-gray-300 p-10">
-        <h2 className="mb-2 text-lg font-semibold">治療登錄 (新增)</h2>
+        <h1 className="mb-2 text-lg font-semibold">治療登錄 (新增)</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4 flex items-center">
             <label htmlFor="date">日期:</label>
@@ -191,7 +190,7 @@ const AddTreatmentRecord = () => {
               onChange={(e) => setChargeNotes(e.target.value)}
             />
           </div>
-          <AddProducts/>
+          <AddProducts />
         </form>
       </div>
     </div>
