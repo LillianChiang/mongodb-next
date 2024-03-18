@@ -29,10 +29,10 @@ const AddTreatmentRecord = () => {
 
   return (
     <div className="container mx-auto flex items-start justify-center">
-      <div className="mt-4 border border-gray-300 p-10">
+      <div className="mt-4 border border-gray-300 p-10 ">
         <h1 className="mb-2 text-lg font-semibold">治療登錄 (新增)</h1>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4 flex items-center">
+          <div className="mb-4 flex items-center bg-gray-100 ">
             <label htmlFor="date">日期:</label>
             <br />
             <input
@@ -59,13 +59,13 @@ const AddTreatmentRecord = () => {
             </button>
           </div>
           <div className="flex">
-            <div className="w-1/2">
+            <div className="flex w-1/2 items-center">
               <label htmlFor="therapist" className="mb-1 mr-1 block">
                 治療師:
               </label>
               <select
                 id="therapist"
-                className="border border-gray-400 p-1"
+                className="mb-4 border border-gray-400 p-1"
                 value={therapist}
                 onChange={(e) => setTherapist(e.target.value)}
               >
@@ -75,13 +75,13 @@ const AddTreatmentRecord = () => {
               </select>
             </div>
 
-            <div className="w-1/2">
+            <div className="flex w-1/2">
               <label htmlFor="treatmentType" className="mb-1 block">
                 治療項目:
               </label>
               <select
                 id="treatmentType"
-                className="w-full border border-gray-400 p-1"
+                className="mb-4 w-10/12 border border-gray-400 p-1"
                 value={treatmentType}
                 onChange={(e) => setTreatmentType(e.target.value)}
               >
@@ -91,44 +91,44 @@ const AddTreatmentRecord = () => {
               </select>
             </div>
           </div>
-          <div className="mb-4">
+          <div className="b mb-4 flex items-center">
             <label htmlFor="content" className="mb-1 block">
               評估內容:
             </label>
             <input
               type="text"
               id="content"
-              className="w-full border border-gray-400 p-6"
+              className="w-10/12 border border-gray-400 p-6"
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 flex items-center">
             <label htmlFor="treatmentContent" className="mb-1 block">
               治療內容:
             </label>
             <input
               type="text"
               id="treatmentContent"
-              className="w-full border border-gray-400 p-6"
+              className="w-10/12 border border-gray-400 p-6"
               value={treatmentContent}
               onChange={(e) => setTreatmentContent(e.target.value)}
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 flex">
             <label htmlFor="treatmentFee" className="mb-1 block">
               治療費用 (現金):
             </label>
             <input
               type="text"
               id="treatmentFee"
-              className="w-full border border-gray-400 p-1"
+              className="w-50 border border-gray-400 p-1"
               value={treatmentFee}
               onChange={(e) => setTreatmentFee(e.target.value)}
             />
           </div>
 
-          <div className="mb-4 flex items-center">
+          <div className="mb-4 flex items-center bg-gray-100">
             <label htmlFor="openPreCharge" className="mb-1 mr-2 block">
               是否開啟預收實現:
             </label>
@@ -141,8 +141,8 @@ const AddTreatmentRecord = () => {
               />
             </label>
           </div>
-          <div>
-            <label htmlFor="treatmentFee" className="mb-1 mr-2 block">
+          <div className="flex items-center">
+            <label htmlFor="treatmentFee" className="mb-4 mr-2 block">
               治療費用 (預收實現):
             </label>
             <input
@@ -153,20 +153,20 @@ const AddTreatmentRecord = () => {
               onChange={(e) => setTreatmentFee(e.target.value)}
             />
           </div>
-          <div className="flex">
-            <div className="mb-4 mr-4">
+          <div className="flex items-center">
+            <div className="mb-4 mr-4 flex items-center">
               <label htmlFor="treatmentContent" className="mb-1 block">
                 預收款項:
               </label>
               <input
                 type="text"
                 id="treatmentContent"
-                className="border border-gray-400 p-1"
+                className="border p-1"
                 value={treatmentContent}
                 onChange={(e) => setTreatmentContent(e.target.value)}
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-4 flex items-center bg-gray-100">
               <label htmlFor="currentTreatmentContent" className="mb-1 block">
                 當前預收款:
               </label>
@@ -179,13 +179,13 @@ const AddTreatmentRecord = () => {
               />
             </div>
           </div>
-          <div className="mb-4">
+          <div className="mb-4 flex items-center">
             <label htmlFor="chargeNotes" className="mb-1 block">
               預收實現備註:
             </label>
             <textarea
               id="chargeNotes"
-              className="w-full border border-gray-400 p-5"
+              className="w-10/12 border border-gray-400 p-5"
               value={chargeNotes}
               onChange={(e) => setChargeNotes(e.target.value)}
             />

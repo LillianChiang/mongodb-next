@@ -13,7 +13,7 @@ const AddProducts = () => {
   const [showAdditionalColumns, setShowAdditionalColumns] = useState(false);
 
   return (
-    <div className="container mx-auto flex items-start justify-center">
+    <div className="container mx-auto flex items-start justify-center bg-gray-200 ">
       <div className="mt-4 border border-gray-300 p-10">
         <form>
           {/* Main columns */}
