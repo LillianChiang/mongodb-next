@@ -1,6 +1,8 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import Clients from '../clientData/Client'
+import DefaultLayout from '../DefaultLayout/page'
 import {
   Container,
   Grid,
@@ -10,31 +12,29 @@ import {
   CircularProgress,
   Select,
   MenuItem,
-} from '@material-ui/core';
+} from '@material-ui/core'
 
 
-
-import DefaultLayout from '../DefaultLayout/page';
 
 const Page = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [records, setRecords] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
+  const [records, setRecords] = useState([])
 
   const handleSearch = () => {
-    setIsLoading(true);
+    setIsLoading(true)
     // Simulate a search operation (replace this with your actual search logic)
     setTimeout(() => {
-      setIsLoading(false); // Set loading to false after search operation
-      setRecords([]); // Set the records with the search results
-    }, 2000);
-  };
+      setIsLoading(false) // Set loading to false after search operation
+      setRecords([]) // Set the records with the search results
+    }, 2000)
+  }
 
   const resetSearch = () => {
-    setRecords([]); // Reset noRecords state when performing a new search
-  };
+    setRecords([]) // Reset noRecords state when performing a new search
+  }
 
   return (
-    <DefaultLayout >
+    <DefaultLayout>
       <Container>
         <Grid
           container
@@ -89,7 +89,7 @@ const Page = () => {
         </Grid>
       </Container>
     </DefaultLayout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

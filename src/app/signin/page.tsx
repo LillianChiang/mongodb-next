@@ -6,7 +6,7 @@ import CopyrightComponent from '../components/CopyrightComponent'
 
 export default function SignIn() {
   return (
-    <div>
+    <div className="bg-gray-200">
       <Login />
       <CopyrightComponent />
     </div>

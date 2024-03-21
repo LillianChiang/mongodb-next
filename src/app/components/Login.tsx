@@ -1,8 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
-import { PiLockKeyDuotone } from 'react-icons/pi'
-import { useForm, Controller } from 'react-hook-form'
+
+import React, { useState, useEffect } from 'react';
+import { PiLockKeyDuotone } from 'react-icons/pi';
+import { useForm, Controller } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import Title from './Title';
+
+
 
 interface FormData {
   name: string
@@ -18,18 +23,22 @@ export default function Login() {
     control,
   } = useForm<FormData>({ mode: 'onChange' })
   const [error, setError] = useState<boolean>(false)
+  const router = useRouter();
 
   const onSubmit = (data: FormData) => {
-    console.log(data)
+    router.push('/board');
     // Process your form submission here
-    window.location.href = '/dashboard'
   }
 
   return (
+    <div>
+    <Title>慕福物理治療診所 Say goodbye to pain for good</Title>
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="max-w-md mx-auto mt-8 p-6 bg-white rounded shadow-md"
     >
+  
+    
       <div className="flex justify-center">
         <PiLockKeyDuotone className="text-purple-600" size={40} />
       </div>
@@ -103,5 +112,7 @@ export default function Login() {
         </button>
       </div>
     </form>
-  )
+    </div>
+  );
+
 }
