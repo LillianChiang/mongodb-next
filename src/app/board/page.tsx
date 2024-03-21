@@ -1,31 +1,32 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Navbar } from './Navbar'
-import Title from '../components/Title'
-
-// Import useClient here if it's not already imported from a different module
-// import useClient from 'wherever/useClient';
+import { useState } from 'react';
+import { Navbar } from './Navbar';
+import Title from '../components/Title';
+import Clients from '../clientData/Clients';
 
 const Page = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [records, setRecords] = useState([])
+  const [isLoading, setIsLoading] = useState(false);
+  const [records, setRecords] = useState([]);
+  
 
   const handleSearch = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     // Simulate a search operation (replace this with your actual search logic)
     setTimeout(() => {
-      setIsLoading(false) // Set loading to false after search operation
-      setRecords([]) // Set the records with the search results
-    }, 2000)
-  }
+      setIsLoading(false); // Set loading to false after search operation
+      setRecords([]); // Set the records with the search results
+    }, 2000);
+  };
 
   const resetSearch = () => {
-    setRecords([]) // Reset noRecords state when performing a new search
-  }
+    setRecords([]); // Reset noRecords state when performing a new search
+  };
+
+ 
 
   return (
-    <div className="container flex justify-center items-center">
+    <div className="container flex items-start justify-center">
       <Title />
       <div className="w-1/4">
         <Navbar />
@@ -33,8 +34,9 @@ const Page = () => {
       <div className="w-4/4">
         <div className="main-content">
           <h1>病歷查詢</h1>
+          
           <div className="search-container flex">
-            <select className="p-2 mr-2 rounded border border-gray-300 resize-y">
+            <select className="mr-2 resize-y rounded border border-gray-300 p-2">
               <option value="patientID">病歷號碼</option>
               <option value="name">姓名</option>
               <option value="phoneNumber">電話號碼</option>
@@ -42,10 +44,10 @@ const Page = () => {
             <input
               type="text"
               placeholder="輸入關鍵字"
-              className="p-2 rounded border border-gray-300 resize-y"
+              className="resize-y rounded border border-gray-300 p-2"
             />
             <button
-              className="px-4 py-2 bg-blue-600 text-white rounded"
+              className="rounded bg-blue-600 px-4 py-2 text-white"
               onClick={handleSearch}
               disabled={isLoading}
             >
@@ -53,7 +55,7 @@ const Page = () => {
             </button>
           </div>
           {records.length === 0 && (
-            <div className="text-red-500 mt-2">
+            <div className="mt-2 text-red-500">
               opps, no records
               <button className="ml-2" onClick={resetSearch}>
                 Try Again
@@ -61,9 +63,11 @@ const Page = () => {
             </div>
           )}
         </div>
+
+        <Clients />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
