@@ -34,7 +34,7 @@ export default function Login() {
     <div>
     <Title>慕福物理治療診所 Say goodbye to pain for good</Title>
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit) }
       className="max-w-md mx-auto mt-8 p-6 bg-white rounded shadow-md"
     >
   
