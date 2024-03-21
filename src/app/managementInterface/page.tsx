@@ -20,7 +20,7 @@ export default function ManagementInterface() {
     setSelectedDate(event.target.value);
   };
 
-  const handleReportTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleReportTypeChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectedReportType(event.target.value);
   };
 
