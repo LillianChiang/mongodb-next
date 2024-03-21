@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
@@ -20,4 +21,5 @@ export default function Title(props: TitleProps) {
       {props.children}
     </Typography>
   );
+
 }

@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import React from 'react'
-import Login from '../components/Login'
-import CopyrightComponent from '../components/CopyrightComponent'
+import React from 'react';
+import Login from '../components/Login';
+import CopyrightComponent from '../components/CopyrightComponent';
 
 export default function SignIn() {
   return (
@@ -10,5 +10,5 @@ export default function SignIn() {
       <Login />
       <CopyrightComponent />
     </div>
-  )
+  );
 }
