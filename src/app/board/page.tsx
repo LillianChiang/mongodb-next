@@ -1,5 +1,6 @@
 'use client';
 
+
 import React, { useState } from 'react';
 import {
   Container,
@@ -15,6 +16,7 @@ import {
 
 
 import DefaultLayout from '../DefaultLayout/page';
+
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -89,6 +91,7 @@ const Page = () => {
         </Grid>
       </Container>
     </DefaultLayout>
+
   );
 };
 
