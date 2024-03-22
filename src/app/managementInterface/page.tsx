@@ -61,7 +61,7 @@ export default function ManagementInterface() {
             <Typography variant="h4">管理介面</Typography>
 
             <div className="mt-4 rounded-lg bg-gray-200 p-4">
-              <Typography variant="h2" className="text-xl font-semibold">
+              <Typography variant="h4" className="text-xl font-semibold">
                 當日業績報表
               </Typography>
 
@@ -101,6 +101,7 @@ export default function ManagementInterface() {
                 <FormControl
                   variant="outlined"
                   className="rounded-md border border-gray-300 px-2 py-1"
+                  sx={{ width: '20%' }}
                 >
                   <Select
                     value={selectedReportType}
