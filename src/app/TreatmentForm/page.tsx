@@ -1,10 +1,42 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import AddProducts from './AddProducts';
+import { makeStyles } from '@material-ui/core/styles';
+
+import {
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Checkbox,
+  FormControlLabel,
+  Typography,
+  Grid,
+  Container,
+  Switch,
+} from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: theme.spacing(4),
+  },
+  form: {
+    border: '1px solid #ccc',
+    padding: theme.spacing(4),
+  },
+  marginBottom: {
+    marginBottom: theme.spacing(4),
+  },
+  switchLabel: {
+    marginRight: theme.spacing(2),
+  },
+}));
 
 const AddTreatmentRecord = () => {
+  const classes = useStyles();
   const router = useRouter();
   const [therapist, setTherapist] = useState('');
   const [treatmentType, setTreatmentType] = useState('');
@@ -21,179 +53,161 @@ const AddTreatmentRecord = () => {
     router.back();
   };
 
-  const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void = (e) => {};
+  const handleTherapistChange = (e: ChangeEvent<{ value: unknown }>) => {
+    setTherapist(e.target.value as string);
+  };
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleTreatmentFeeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTreatmentFee(e.target.value);
+  };
+
+  const handleChargeFeeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setChargeFee(e.target.value);
+  };
+
+  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
   };
 
+  const handleCurrentTreatmentContentChange = (
+    e: ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setCurrentTreatmentContent(e.target.value);
+  };
+
+  const handleOpenPreChargeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setOpenPreCharge(e.target.checked);
+  };
+
   return (
-    <div className="container mx-auto flex items-start justify-center">
-      <div className="mt-4 border border-gray-300 p-10 ">
-        <h1 className="mb-2 text-lg font-semibold">治療登錄 (新增)</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4 flex items-center bg-gray-100 ">
-            <label htmlFor="date">日期:</label>
-            <br />
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={date}
-              onChange={handleChange}
-              className="input-field"
-            />
-
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="ml-2 rounded-md bg-gray-300 px-4 py-2 text-gray-800"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="ml-2 rounded-md bg-blue-500 px-4 py-2 text-white"
-            >
-              Save
-            </button>
-          </div>
-          <div className="flex">
-            <div className="flex w-1/2 items-center">
-              <label htmlFor="therapist" className="mb-1 mr-1 block">
-                治療師:
-              </label>
-              <select
-                id="therapist"
-                className="mb-4 border border-gray-400 p-1"
-                value={therapist}
-                onChange={(e) => setTherapist(e.target.value)}
-              >
-                <option value="therapist1">Therapist 1</option>
-                <option value="therapist2">Therapist 2</option>
-                {/* Add more therapists as needed */}
-              </select>
-            </div>
-
-            <div className="flex w-1/2">
-              <label htmlFor="treatmentType" className="mb-1 block">
-                治療項目:
-              </label>
-              <select
-                id="treatmentType"
-                className="mb-4 w-10/12 border border-gray-400 p-1"
-                value={treatmentType}
-                onChange={(e) => setTreatmentType(e.target.value)}
-              >
-                <option value="type1">評估+衛教運動</option>
-                <option value="type2">Type 2</option>
-                {/* Add more treatment types as needed */}
-              </select>
-            </div>
-          </div>
-          <div className="b mb-4 flex items-center">
-            <label htmlFor="content" className="mb-1 block">
-              評估內容:
-            </label>
-            <input
-              type="text"
-              id="content"
-              className="w-10/12 border border-gray-400 p-6"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-          </div>
-          <div className="mb-4 flex items-center">
-            <label htmlFor="treatmentContent" className="mb-1 block">
-              治療內容:
-            </label>
-            <input
-              type="text"
-              id="treatmentContent"
-              className="w-10/12 border border-gray-400 p-6"
-              value={treatmentContent}
-              onChange={(e) => setTreatmentContent(e.target.value)}
-            />
-          </div>
-          <div className="mb-4 flex">
-            <label htmlFor="treatmentFee" className="mb-1 block">
-              治療費用 (現金):
-            </label>
-            <input
-              type="text"
-              id="treatmentFee"
-              className="w-50 border border-gray-400 p-1"
-              value={treatmentFee}
-              onChange={(e) => setTreatmentFee(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-4 flex items-center bg-gray-100">
-            <label htmlFor="openPreCharge" className="mb-1 mr-2 block">
-              是否開啟預收實現:
-            </label>
-            <label className="switch">
-              <input
-                type="checkbox"
-                id="openPreCharge"
-                checked={openPreCharge}
-                onChange={(e) => setOpenPreCharge(e.target.checked)}
+    <Container>
+      <div className={classes.form}>
+        <Typography variant="h5">治療登錄 (新增)</Typography>
+        <form>
+          <Grid container spacing={2}>
+            <Grid item xs={2}>
+              <TextField
+                fullWidth
+                type="date"
+                id="date"
+                value={date}
+                onChange={handleDateChange}
               />
-            </label>
-          </div>
-          <div className="flex items-center">
-            <label htmlFor="treatmentFee" className="mb-4 mr-2 block">
-              治療費用 (預收實現):
-            </label>
-            <input
-              type="text"
-              id="treatmentFee"
-              className="border border-gray-400 p-1"
-              value={treatmentFee}
-              onChange={(e) => setTreatmentFee(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center">
-            <div className="mb-4 mr-4 flex items-center">
-              <label htmlFor="treatmentContent" className="mb-1 block">
-                預收款項:
-              </label>
-              <input
-                type="text"
-                id="treatmentContent"
-                className="border p-1"
-                value={treatmentContent}
-                onChange={(e) => setTreatmentContent(e.target.value)}
+            </Grid>
+            <Grid item>
+              <Button type="submit" variant="contained" color="primary">
+                儲存
+              </Button>
+              <Button
+                variant="contained"
+                color="default"
+                onClick={handleCancel}
+              >
+                取消
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid container spacing={2} className={classes.marginBottom}>
+            <Grid item xs={4}>
+              <FormControl fullWidth>
+                <InputLabel id="therapist-label">治療師</InputLabel>
+                <Select
+                  labelId="therapist-label"
+                  id="therapist"
+                  value={therapist}
+                  onChange={handleTherapistChange}
+                >
+                  <MenuItem value="therapist1">Therapist 1</MenuItem>
+                  <MenuItem value="therapist2">Therapist 2</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl fullWidth>
+                <InputLabel id="treatmentType-label">治療項目</InputLabel>
+                <Select
+                  labelId="treatmentType-label"
+                  id="treatmentType"
+                  value={treatmentType}
+                  onChange={(e) => setTreatmentType(e.target.value)}
+                >
+                  <MenuItem value="type1">評估+衛教運動</MenuItem>
+                  <MenuItem value="type2">Type 2</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+          <TextField
+            fullWidth
+            id="content"
+            label="評估內容"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className={classes.marginBottom}
+          />
+          <TextField
+            fullWidth
+            id="treatmentContent"
+            label="治療內容"
+            value={treatmentContent}
+            onChange={(e) => setTreatmentContent(e.target.value)}
+            className={classes.marginBottom}
+          />
+          <Grid container spacing={2}>
+            <Grid item xs={3}>
+              <TextField
+                id="treatmentFee"
+                label="治療費用 (現金)"
+                value={treatmentFee}
+                onChange={(e) => setTreatmentFee(e.target.value)}
+                className={classes.marginBottom}
               />
-            </div>
-            <div className="mb-4 flex items-center bg-gray-100">
-              <label htmlFor="currentTreatmentContent" className="mb-1 block">
-                當前預收款:
-              </label>
-              <input
-                type="text"
+            </Grid>
+            <Grid item xs={3}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    id="openPreCharge"
+                    checked={openPreCharge}
+                    onChange={handleOpenPreChargeChange}
+                  />
+                }
+                label="是否開啟預收實現"
+                className={classes.marginBottom}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                id="chargeFee"
+                label="治療費用 (預收實現)"
+                value={chargeFee}
+                onChange={(e) => setChargeFee(e.target.value)}
+                className={classes.marginBottom}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
                 id="currentTreatmentContent"
-                className="border border-gray-400 p-1"
+                label="預收款項"
                 value={currentTreatmentContent}
                 onChange={(e) => setCurrentTreatmentContent(e.target.value)}
+                className={classes.marginBottom}
               />
-            </div>
-          </div>
-          <div className="mb-4 flex items-center">
-            <label htmlFor="chargeNotes" className="mb-1 block">
-              預收實現備註:
-            </label>
-            <textarea
-              id="chargeNotes"
-              className="w-10/12 border border-gray-400 p-5"
-              value={chargeNotes}
-              onChange={(e) => setChargeNotes(e.target.value)}
-            />
-          </div>
-          <AddProducts />
+            </Grid>
+          </Grid>
+          <TextField
+            fullWidth
+            id="chargeNotes"
+            label="預收實現備註"
+            multiline
+            rows={4}
+            value={chargeNotes}
+            onChange={(e) => setChargeNotes(e.target.value)}
+            className={classes.marginBottom}
+          />
         </form>
       </div>
-    </div>
+    </Container>
   );
 };
 
