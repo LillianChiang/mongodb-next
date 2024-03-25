@@ -2,33 +2,51 @@
 
 import { useState } from 'react';
 import Clients from '../clientData/Clients';
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
+
 
 import {
-  Container,
-  Grid,
-  Typography,
-  TextField,
   Button,
   CircularProgress,
-  Select,
+  Container,
+  Grid,
   MenuItem,
+  Select,
+  Snackbar,
+  TextField,
+  Typography,
 } from '@material-ui/core';
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [records, setRecords] = useState([]);
+  const [records, setRecords] = useState<string[]>([]);
+  const [openAlert, setOpenAlert] = useState(false);
 
   const handleSearch = () => {
     setIsLoading(true);
     // Simulate a search operation (replace this with your actual search logic)
     setTimeout(() => {
-      setIsLoading(false); // Set loading to false after search operation
-      setRecords([]); // Set the records with the search results
+      setIsLoading(false);
+      const searchResults: string[] = []; // Placeholder for search results
+      setRecords(searchResults);
+      if (searchResults.length === 0) {
+        setOpenAlert(true); // Show popup alert if no records found
+      }
     }, 2000);
   };
 
   const resetSearch = () => {
     setRecords([]); // Reset noRecords state when performing a new search
+  };
+
+  const handleCloseAlert = (
+    event: React.SyntheticEvent | MouseEvent,
+    reason: string,
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAlert(false);
   };
 
   return (
@@ -58,10 +76,11 @@ const Page = () => {
                 placeholder="輸入關鍵字"
                 className="resize-y rounded border border-gray-300 p-2"
               />
+
               <Button
                 variant="contained"
                 color="primary"
-                className="rounded bg-blue-600 px-4 py-2 text-white"
+                className="rounded bg-blue-600 px-5 py-5 text-white"
                 onClick={handleSearch}
                 disabled={isLoading}
               >
@@ -72,14 +91,21 @@ const Page = () => {
                 )}
               </Button>
             </div>
-            {records.length === 0 && (
-              <div className="mt-2 text-red-500">
-                opps, no records
-                <Button className="ml-2" onClick={resetSearch}>
-                  Try Again
-                </Button>
-              </div>
-            )}
+            <Snackbar
+              open={openAlert}
+              autoHideDuration={5000}
+              onClose={handleCloseAlert}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              message="Opps, 查無符合資料"
+              action={
+                <>
+                  <Button color="secondary" size="small" onClick={resetSearch}>
+                    ok
+                  </Button>
+                  <ErrorOutlineRoundedIcon fontSize="small" style={{ marginLeft: 8 }}/>
+                </>
+              }
+            />
           </div>
           <Clients />
         </Grid>
@@ -87,5 +113,4 @@ const Page = () => {
     </Container>
   );
 };
-
 export default Page;

@@ -3,6 +3,7 @@
 import { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { makeStyles } from '@material-ui/core/styles';
+import AddProducts from './AddProducts';
 
 import {
   Button,
@@ -207,6 +208,7 @@ const AddTreatmentRecord = () => {
           />
         </form>
       </div>
+      <AddProducts/>
     </Container>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import add from '../TreatmentForm/page';
-import edit from '../EditTreatmentForm/page';
+
 import { useRouter } from 'next/navigation';
 
 const Clients = () => {
@@ -19,11 +18,11 @@ const Clients = () => {
   ]);
 
   const handleAddClient = () => {
-    router.push('/TreatmentForm');
+    router.push('/treatmentForm');
   };
 
   const handleEditClient = () => {
-    router.push('/EditTreatmentForm');
+    router.push('/editTreatmentForm');
   };
 
   const handleViewInfo = () => {
@@ -31,7 +30,7 @@ const Clients = () => {
   };
 
   const handleDeleteClient = () => {
-    // Logic for deleting a client
+    router.push('/deleteTreatmentForm');
   };
 
   // Reverse the order of the clients array
