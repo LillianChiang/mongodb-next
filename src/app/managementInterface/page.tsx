@@ -105,7 +105,7 @@ export default function ManagementInterface() {
                 >
                   <Select
                     value={selectedReportType}
-                    onChange={handleReportTypeChange}
+                    // onChange={handleReportTypeChange}
                     fullWidth
                   >
                     <MenuItem value="">

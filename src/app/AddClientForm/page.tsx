@@ -50,7 +50,7 @@ const AddClientForm: React.FC = () => {
                 value={formData.date}
                 onChange={handleChange}
               />
-            </Grid >
+            </Grid>
           </Grid>
           <Grid container spacing={2} className={classes.marginBottom}>
             <Grid item xs={4}>

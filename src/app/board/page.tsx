@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Clients from '../clientData/Clients';
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 
 
 import {
@@ -95,11 +96,14 @@ const Page = () => {
               autoHideDuration={5000}
               onClose={handleCloseAlert}
               anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              message="Opps, no records"
+              message="Opps, 查無符合資料"
               action={
-                <Button color="secondary" size="small" onClick={resetSearch}>
-                  ok
-                </Button>
+                <>
+                  <Button color="secondary" size="small" onClick={resetSearch}>
+                    ok
+                  </Button>
+                  <ErrorOutlineRoundedIcon fontSize="small" style={{ marginLeft: 8 }}/>
+                </>
               }
             />
           </div>
@@ -109,5 +113,4 @@ const Page = () => {
     </Container>
   );
 };
-
 export default Page;

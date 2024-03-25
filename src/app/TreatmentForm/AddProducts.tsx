@@ -1,130 +1,126 @@
 import React, { useState } from 'react';
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 
 const AddProducts = () => {
-  // State variables for input values
-  const [product, setProduct] = useState('');
-  const [therapist, setTherapist] = useState('');
-  const [price, setPrice] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [discount, setDiscount] = useState('');
-  const [totalPrice, setTotalPrice] = useState('');
+  const [forms, setForms] = useState([
+    {
+      product: '',
+      therapist: '',
+      price: '',
+      quantity: '',
+      discount: '',
+      totalPrice: '',
+    },
+  ]);
 
-  // State variable to toggle visibility of additional columns
-  const [showAdditionalColumns, setShowAdditionalColumns] = useState(false);
+  const handleAddForm = () => {
+    setForms((prevForms) => [
+      ...prevForms,
+      {
+        product: '',
+        therapist: '',
+        price: '',
+        quantity: '',
+        discount: '',
+        totalPrice: '',
+      },
+    ]);
+  };
+
+  const handleFormChange = (index, field, value) => {
+    const updatedForms = [...forms];
+    updatedForms[index][field] = value;
+    setForms(updatedForms);
+  };
 
   return (
-    <div className="container mx-auto flex items-start justify-center bg-gray-200 ">
-      <div className="mt-4 border border-gray-300 p-10">
-        <form>
-          {/* Main columns */}
-          <div className="mb-4 flex items-center">
-            {/* Product column */}
-            <div className="mr-4">
-              <label htmlFor="product" className="mb-1 block">
-                商品:
-              </label>
-              <select
-                id="product"
-                className="border border-gray-400 p-1"
-                value={product}
-                onChange={(e) => setProduct(e.target.value)}
-              ></select>
-            </div>
+    <div className="container mx-auto flex items-start justify-center bg-gray-200">
+      <div className="mt-4 flex flex-col border border-gray-300 p-10">
+        {forms.map((form, index) => (
+          <form key={index}>
+            <div className="mb-4 flex items-center">
+              <FormControl className="mr-4">
+                <InputLabel id={`product-label-${index}`}>商品:</InputLabel>
+                <Select
+                  labelId={`product-label-${index}`}
+                  id={`product-${index}`}
+                  value={form.product}
+                  onChange={(e) =>
+                    handleFormChange(index, 'product', e.target.value)
+                  }
+                  sx={{ minWidth: '120px' }}
+                >
+                  {/* Options for products */}
+                  <MenuItem value="product1">Product 1</MenuItem>
+                  <MenuItem value="product2">Product 2</MenuItem>
+                  <MenuItem value="product3">Product 3</MenuItem>
+                </Select>
+              </FormControl>
 
-            <div className="mr-4">
-              <label htmlFor="therapist" className="mb-1 block">
-                治療師:
-              </label>
-              <select
-                id="therapist"
-                className="border border-gray-400 p-1"
-                value={therapist}
-                onChange={(e) => setTherapist(e.target.value)}
-              >
-                {/* Options for therapists */}
-              </select>
-            </div>
+              <FormControl className="mr-6">
+                <InputLabel id={`therapist-label-${index}`}>治療師:</InputLabel>
+                <Select
+                  labelId={`therapist-label-${index}`}
+                  id={`therapist-${index}`}
+                  value={form.therapist}
+                  onChange={(e) =>
+                    handleFormChange(index, 'therapist', e.target.value)
+                  }
+                  sx={{ minWidth: '120px' }}
+                >
+                  {/* Options for therapists */}
+                  <MenuItem value="therapist1">Therapist 1</MenuItem>
+                  <MenuItem value="therapist2">Therapist 2</MenuItem>
+                  <MenuItem value="therapist3">Therapist 3</MenuItem>
+                </Select>
+              </FormControl>
 
-            {/* Price column */}
-            <div className="mr-4">
-              <label htmlFor="price" className="mb-1 block">
-                單價:
-              </label>
-              <input
-                type="text"
-                id="price"
-                className="border border-gray-400 p-1"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+              <TextField
+                className="mr-4"
+                label="單價"
+                value={form.price}
+                onChange={(e) =>
+                  handleFormChange(index, 'price', e.target.value)
+                }
               />
-            </div>
-
-            {/* Quantity column */}
-            <div className="mr-4">
-              <label htmlFor="quantity" className="mb-1 block">
-                數量:
-              </label>
-              <input
-                type="text"
-                id="quantity"
-                className="border border-gray-400 p-1"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+              <TextField
+                className="mr-4"
+                label="數量"
+                value={form.quantity}
+                onChange={(e) =>
+                  handleFormChange(index, 'quantity', e.target.value)
+                }
               />
-            </div>
-
-            {/* Discount column */}
-            <div className="mr-4">
-              <label htmlFor="discount" className="mb-1 block">
-                折扣:
-              </label>
-              <input
-                type="text"
-                id="discount"
-                className="border border-gray-400 p-1"
-                value={discount}
-                onChange={(e) => setDiscount(e.target.value)}
+              <TextField
+                className="mr-4"
+                label="折扣"
+                value={form.discount}
+                onChange={(e) =>
+                  handleFormChange(index, 'discount', e.target.value)
+                }
               />
-            </div>
 
-            {/* Total Price column */}
-            <div>
-              <label htmlFor="totalPrice" className="mb-1 block">
-                總價:
-              </label>
-              <input
-                type="text"
-                id="totalPrice"
-                className="border border-gray-400 p-1"
-                value={totalPrice}
-                onChange={(e) => setTotalPrice(e.target.value)}
+              <TextField
+                label="總價"
+                value={form.totalPrice}
+                onChange={(e) =>
+                  handleFormChange(index, 'totalPrice', e.target.value)
+                }
               />
+              <Button variant="outlined" onClick={handleAddForm}>
+                +
+              </Button>
             </div>
-
-            {/* Plus icon to toggle additional columns */}
-            <div className="ml-4">
-              <button
-                type="button"
-                className="text-blue-500 hover:text-blue-700 focus:outline-none"
-                onClick={() => setShowAdditionalColumns(!showAdditionalColumns)}
-              >
-                {showAdditionalColumns ? '-' : '+'}
-              </button>
-            </div>
-          </div>
-          {showAdditionalColumns && (
-            <div className="flex items-center">
-              {/* Additional column 1 */}
-              <div className="mr-4">{/* Input field */}</div>
-              {/* Additional column 2 */}
-              <div className="mr-4">{/* Input field */}</div>
-              {/* Additional column 3 */}
-              <div className="mr-4">{/* Input field */}</div>
-              {/* Additional column 4 */}
-              <div className="mr-4">{/* Input field */}</div>
-            </div>
-          )}
-        </form>
+          </form>
+        ))}
       </div>
     </div>
   );
