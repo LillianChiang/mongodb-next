@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './globals.css';
 import Providers from '@/providers';
-import Dashboard from '../DefaultLayout';
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,9 +11,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Providers>
-          <Dashboard>{props.children}</Dashboard>
-        </Providers>
+        <Providers>{props.children}</Providers>
       </body>
     </html>
   );

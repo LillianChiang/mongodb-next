@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Clients from '../clientData/Clients';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
-
+import Navbar from '../components/DefaultLayout';
 
 import {
   Button,
@@ -50,67 +50,76 @@ const Page = () => {
   };
 
   return (
-    <Container>
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="flex-start"
-        spacing={2}
-      >
-        <Grid item xs={12} md={2}></Grid>
-        <Grid item xs={12} md={9}>
-          <div className="main-content">
-            <Typography variant="h4">病歷查詢</Typography>
-            <div className="search-container flex">
-              <Select
-                variant="outlined"
-                className="mr-2 resize-y rounded border border-gray-300 p-2"
-              >
-                <MenuItem value="patientID">病歷號碼</MenuItem>
-                <MenuItem value="name">姓名</MenuItem>
-                <MenuItem value="phoneNumber">電話號碼</MenuItem>
-              </Select>
-              <TextField
-                variant="outlined"
-                type="text"
-                placeholder="輸入關鍵字"
-                className="resize-y rounded border border-gray-300 p-2"
-              />
+    <Navbar>
+      <Container>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="flex-start"
+          spacing={2}
+        >
+          <Grid item xs={12} md={2}></Grid>
+          <Grid item xs={12} md={9}>
+            <div className="main-content">
+              <Typography variant="h4">病歷查詢</Typography>
+              <div className="search-container flex">
+                <Select
+                  variant="outlined"
+                  className="mr-2 resize-y rounded border border-gray-300 p-2"
+                >
+                  <MenuItem value="patientID">病歷號碼</MenuItem>
+                  <MenuItem value="name">姓名</MenuItem>
+                  <MenuItem value="phoneNumber">電話號碼</MenuItem>
+                </Select>
+                <TextField
+                  variant="outlined"
+                  type="text"
+                  placeholder="輸入關鍵字"
+                  className="resize-y rounded border border-gray-300 p-2"
+                />
 
-              <Button
-                variant="contained"
-                color="primary"
-                className="rounded bg-blue-600 px-5 py-5 text-white"
-                onClick={handleSearch}
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <CircularProgress size={24} color="inherit" />
-                ) : (
-                  '搜尋'
-                )}
-              </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className="rounded bg-blue-600 px-5 py-5 text-white"
+                  onClick={handleSearch}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    '搜尋'
+                  )}
+                </Button>
+              </div>
+              <Snackbar
+                open={openAlert}
+                autoHideDuration={5000}
+                onClose={handleCloseAlert}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                message="Opps, 查無符合資料"
+                action={
+                  <>
+                    <Button
+                      color="secondary"
+                      size="small"
+                      onClick={resetSearch}
+                    >
+                      ok
+                    </Button>
+                    <ErrorOutlineRoundedIcon
+                      fontSize="small"
+                      style={{ marginLeft: 8 }}
+                    />
+                  </>
+                }
+              />
             </div>
-            <Snackbar
-              open={openAlert}
-              autoHideDuration={5000}
-              onClose={handleCloseAlert}
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              message="Opps, 查無符合資料"
-              action={
-                <>
-                  <Button color="secondary" size="small" onClick={resetSearch}>
-                    ok
-                  </Button>
-                  <ErrorOutlineRoundedIcon fontSize="small" style={{ marginLeft: 8 }}/>
-                </>
-              }
-            />
-          </div>
-          <Clients />
+            <Clients />
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </Navbar>
   );
 };
 export default Page;
