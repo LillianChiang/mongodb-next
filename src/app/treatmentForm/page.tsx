@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, ChangeEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, ChangeEvent } from 'react'; // Added React import
+import { useRouter } from 'next/navigation'; // Fixed import path
 import { makeStyles } from '@material-ui/core/styles';
 import AddProducts from './AddProducts';
 
@@ -18,6 +18,7 @@ import {
   Grid,
   Container,
   Switch,
+  Snackbar,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,9 +50,10 @@ const AddTreatmentRecord = () => {
   const [chargeNotes, setChargeNotes] = useState('');
   const [date, setDate] = useState('');
   const [currentTreatmentContent, setCurrentTreatmentContent] = useState('');
+  const [openAlert, setOpenAlert] = useState(false);
 
   const handleCancel = () => {
-    router.back();
+    setOpenAlert(true);
   };
 
   const handleTherapistChange = (e: ChangeEvent<{ value: unknown }>) => {
@@ -80,6 +82,20 @@ const AddTreatmentRecord = () => {
     setOpenPreCharge(e.target.checked);
   };
 
+  const handleCloseAlert = (
+    event: React.SyntheticEvent | MouseEvent,
+    reason: string,
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAlert(false);
+  };
+
+  const resetDelete = () => {
+    setOpenAlert(false); // Close the alert after resetting search
+  };
+
   return (
     <Container>
       <div className={classes.form}>
@@ -95,7 +111,6 @@ const AddTreatmentRecord = () => {
                 onChange={handleDateChange}
               />
             </Grid>
-            {/* {display login data} */}
             <Grid item xs={8}>
               <Button type="submit" variant="contained" color="primary">
                 收據: 0
@@ -108,6 +123,23 @@ const AddTreatmentRecord = () => {
                 刪除
               </Button>
             </Grid>
+            <Snackbar
+              open={openAlert}
+              autoHideDuration={5000}
+              onClose={handleCloseAlert}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              message="確定刪除嗎？"
+              action={
+                <>
+                  <Button color="secondary" size="small">
+                    是
+                  </Button>
+                  <Button color="secondary" size="small" onClick={resetDelete}>
+                    否
+                  </Button>
+                </>
+              }
+            />
           </Grid>
           <Grid container spacing={2} className={classes.marginBottom}>
             <Grid item xs={4}>
@@ -131,7 +163,7 @@ const AddTreatmentRecord = () => {
                   labelId="treatmentType-label"
                   id="treatmentType"
                   value={treatmentType}
-                  onChange={(e) => setTreatmentType(e.target.value)}
+                  onChange={(e) => setTreatmentType(e.target.value as string)} // Added type assertion
                 >
                   <MenuItem value="type1">評估+衛教運動</MenuItem>
                   <MenuItem value="type2">Type 2</MenuItem>

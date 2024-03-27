@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { Button, Snackbar } from '@material-ui/core';
 import { useRouter } from 'next/navigation';
@@ -17,7 +15,7 @@ const MyComponent = () => {
   };
 
   const handleNoButtonClick = () => {
-    router.push('/board');
+    router.push('/treatmentForm');
   };
 
   return (
