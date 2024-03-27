@@ -4,6 +4,7 @@ import React, { useState, ChangeEvent } from 'react'; // Added React import
 import { useRouter } from 'next/navigation'; // Fixed import path
 import { makeStyles } from '@material-ui/core/styles';
 import AddProducts from './AddProducts';
+import Title from '../components/Title';
 
 import {
   Button,
@@ -97,7 +98,12 @@ const AddTreatmentRecord = () => {
   };
 
   return (
+    <>
+    <div>
+    <Title> 慕福物理治療診所 Say goodbye to pain for good</Title>
+    </div>
     <Container>
+     
       <div className={classes.form}>
         <Typography variant="h5">治療登錄 (新增)</Typography>
         <form>
@@ -258,6 +264,7 @@ const AddTreatmentRecord = () => {
       </div>
       <AddProducts />
     </Container>
+    </>
   );
 };
 
