@@ -1,7 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Clients from '../clientData/Clients';
+// import Clients from '../clientData/Clients';
+import Clients from '../components/ClientSearchResult';
+import PaginationDemo from '../components/Pagination';
+import personalInfo from '../../mock/personalInfo.json';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import Navbar from '../components/DefaultLayout';
 
@@ -47,6 +50,15 @@ const Page = () => {
       return;
     }
     setOpenAlert(false);
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 8; // 每頁顯示筆數
+  const totalPages = Math.ceil(personalInfo.length / usersPerPage);
+
+  // 換頁
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -118,6 +130,13 @@ const Page = () => {
             <Clients />
           </Grid>
         </Grid>
+        <div className="flex justify-center">
+          <PaginationDemo
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </Container>
     </Navbar>
   );
