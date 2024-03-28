@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Container, Typography, TextField, Button, Grid } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
-import Navbar from '../components/DefaultLayout';
+import Title from '../components/Title' ;
+
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -19,6 +21,7 @@ const AddClientForm: React.FC = () => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     date: '',
+    MedNumber: '',
     name: '',
     phoneNumber: '',
     address: '',
@@ -28,6 +31,8 @@ const AddClientForm: React.FC = () => {
     notes: '',
   });
 
+  const router = useRouter();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -36,8 +41,15 @@ const AddClientForm: React.FC = () => {
     });
   };
 
+  const handleCancel = () => {
+    router.back();
+  };
+
   return (
-    <Navbar>
+    <>
+      <div>
+        <Title> 慕福物理治療診所 Say goodbye to pain for good</Title>
+      </div>
       <Container>
         <div className={classes.form}>
           <Typography variant="h5">新增個案資料</Typography>
@@ -53,8 +65,18 @@ const AddClientForm: React.FC = () => {
                   onChange={handleChange}
                 />
               </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  fullWidth
+                  id="MedNumber"
+                  name="MedNumber"
+                  label="病歷號碼"
+                  value={formData.MedNumber}
+                  onChange={handleChange}
+                />
+              </Grid>
             </Grid>
-            <Grid container spacing={2} className={classes.marginBottom}>
+            <Grid container spacing={5} className={classes.marginBottom}>
               <Grid item xs={4}>
                 <TextField
                   fullWidth
@@ -133,12 +155,20 @@ const AddClientForm: React.FC = () => {
               className={classes.marginBottom}
             />
             <Button type="submit" variant="contained" color="primary">
-              儲存
+              建立資料
+            </Button>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleCancel}
+            >
+              取消
             </Button>
           </form>
         </div>
       </Container>
-    </Navbar>
+    </>
   );
 };
 
