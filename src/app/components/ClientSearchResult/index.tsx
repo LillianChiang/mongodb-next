@@ -39,8 +39,8 @@ export default function ClientSearchResult() {
       <h1 className="mb-4 text-2xl">Clients Information</h1>
       <div className="flex flex-wrap items-center justify-center">
         {currentClients.map((item) => (
-          <div className="m-2 min-w-[400px] space-y-1 bg-[#DDE9FD] p-2 shadow-md">
-            <React.Fragment key={item.id}>
+          <React.Fragment key={item.id}>
+            <div className="m-2 min-w-[400px] space-y-1 bg-[#DDE9FD] p-2 shadow-md">
               <div className="grid grid-cols-4">
                 <span className="col-span-1">ID:</span>
                 <span className="col-span-3">{item.id}</span>
@@ -95,8 +95,8 @@ export default function ClientSearchResult() {
                   Delete
                 </button>
               </div>
-            </React.Fragment>
-          </div>
+            </div>
+          </React.Fragment>
         ))}
       </div>
       <div className="flex justify-center">
