@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Clients from '../clientData/Clients';
+import ClientSearchResult from '../components/ClientSearchResult';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import Navbar from '../components/DefaultLayout';
 
@@ -115,7 +115,7 @@ const Page = () => {
                 }
               />
             </div>
-            <Clients />
+            <ClientSearchResult />
           </Grid>
         </Grid>
       </Container>
