@@ -90,7 +90,7 @@ export default function Dashboard({ children }: DashboardProps) {
               sx={{
                 pr: '24px', // keep right padding when drawer closed
               }}
-              className="bg-[#305ADE]"
+              className="bg-[#305ADE]" // header color
             >
               <IconButton
                 edge="start"

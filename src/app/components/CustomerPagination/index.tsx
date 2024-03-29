@@ -2,18 +2,18 @@ import React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-interface PaginationDemoProps {
+interface PaginationProps {
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 }
 
-const PaginationDemo: React.FC<PaginationDemoProps> = ({
+export default function CustomerPagination({
   totalPages,
   currentPage,
   onPageChange,
-}) => {
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+}: PaginationProps) {
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     onPageChange(value);
   };
 
@@ -26,6 +26,4 @@ const PaginationDemo: React.FC<PaginationDemoProps> = ({
       />
     </Stack>
   );
-};
-
-export default PaginationDemo;
+}

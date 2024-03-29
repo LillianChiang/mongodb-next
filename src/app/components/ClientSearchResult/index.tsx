@@ -1,21 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import personalInfo from '../../../mock/personalInfo.json';
-
-// client information card
-const UserInfo: React.FC<{ user: any }> = ({ user }) => {
-  return (
-    <div style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
-      <h3>{user.name}</h3>
-      <p>ID: {user.id}</p>
-      <p>ID Number: {user.idNumber}</p>
-      <p>Gender: {user.gender}</p>
-      <p>Birthday: {user.birthday}</p>
-      <p>Phone Number: {user.phoneNumber}</p>
-      <p>Mobile Number: {user.mobileNumber}</p>
-    </div>
-  );
-};
+import Pagination from '../CustomerPagination';
 
 export default function ClientSearchResult() {
   const router = useRouter();
@@ -36,16 +22,23 @@ export default function ClientSearchResult() {
     // Logic for deleting a client
   };
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 8; // 每頁顯示筆數
-  const totalPages = Math.ceil(personalInfo.length / usersPerPage);
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = personalInfo.slice(indexOfFirstUser, indexOfLastUser);
+  const clientPerPage = 10; // 每頁顯示筆數
+  const totalPages = Math.ceil(personalInfo.length / clientPerPage);
+  // 根據目前頁數，計算要顯示的使用者數據
+  const indexOfLast = currentPage * clientPerPage;
+  const indexOfFirst = indexOfLast - clientPerPage;
+  const currentClients = personalInfo.slice(indexOfFirst, indexOfLast);
+
+  // 換頁
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="rounded-lg bg-purple-100 p-6">
       <h1 className="mb-4 text-2xl">Clients Information</h1>
       <div className="flex flex-wrap items-center justify-center">
-        {currentUsers.map((item) => (
+        {currentClients.map((item) => (
           <div className="m-2 min-w-[400px] space-y-1 bg-[#DDE9FD] p-2 shadow-md">
             <React.Fragment key={item.id}>
               <div className="grid grid-cols-4">
@@ -105,6 +98,13 @@ export default function ClientSearchResult() {
             </React.Fragment>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center">
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   );
