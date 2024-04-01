@@ -134,12 +134,10 @@ export default function Dashboard({ children }: DashboardProps) {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">
-            {listItems()}
-            <Divider sx={{ my: 1 }} />
-          </List>
+          <List component="nav">{listItems()}</List>
         </Drawer>
         <Box
+          className="pt-16"
           component="main"
           sx={{
             backgroundColor: (theme) =>

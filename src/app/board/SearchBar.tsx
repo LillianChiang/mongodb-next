@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <div className="search-container flex">
       <Select
         variant="outlined"
-        className="mr-2 resize-y rounded border border-gray-300 p-2"
+        className="my-2 w-36 resize-y rounded border border-gray-300"
         value={searchCriteria}
         onChange={(e) => setSearchCriteria(e.target.value as string)}
       >
@@ -40,14 +40,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
               ? '姓名'
               : '電話號碼'
         }`}
-        className="resize-y rounded border border-gray-300 p-2"
+        className="resize-y rounded p-2"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
       <Button
         variant="contained"
         color="primary"
-        className="rounded bg-blue-600 px-5 py-5 text-white"
+        className="my-2 rounded bg-blue-600 text-white"
         onClick={handleSearch}
         disabled={isLoading}
       >
