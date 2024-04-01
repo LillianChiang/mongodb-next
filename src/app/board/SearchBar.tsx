@@ -47,7 +47,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <Button
         variant="contained"
         color="primary"
-        className="my-2 rounded bg-blue-600 text-white"
+        className="my-2 rounded bg-blue-600 text-white "
         onClick={handleSearch}
         disabled={isLoading}
       >
