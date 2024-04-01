@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { Button, Snackbar } from '@material-ui/core';
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 import { useRouter } from 'next/navigation';
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 
 const MyComponent = () => {
   const [openAlert, setOpenAlert] = useState(true);
