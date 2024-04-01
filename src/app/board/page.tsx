@@ -106,7 +106,7 @@ const Page = () => {
                     <Button
                       color="secondary"
                       size="small"
-                      onClick={handleCloseAlert}
+                      onClick={resetSearch}
                     >
                       ok
                     </Button>
