@@ -9,6 +9,16 @@ import {
 } from '@mui/material';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
 
+// Define a type/interface for the form data
+interface FormData {
+  product: string;
+  therapist: string;
+  price: string;
+  quantity: string;
+  discount: string;
+  totalPrice: string;
+}
+
 const AddProducts = () => {
   const [forms, setForms] = useState([
     {
@@ -35,9 +45,14 @@ const AddProducts = () => {
     ]);
   };
 
-  const handleFormChange = (index, field, value) => {
+  const handleFormChange = (index: number, field: string, value: string) => {
     const updatedForms = [...forms];
     updatedForms[index][field] = value;
+    setForms(updatedForms);
+  };
+
+  const handleDeleteForm = (index: number) => {
+    const updatedForms = forms.filter((_, i: number) => i !== index);
     setForms(updatedForms);
   };
 
@@ -117,6 +132,12 @@ const AddProducts = () => {
               />
               <Button variant="outlined" onClick={handleAddForm}>
                 +
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => handleDeleteForm(index)}
+              >
+                -
               </Button>
             </div>
           </form>
