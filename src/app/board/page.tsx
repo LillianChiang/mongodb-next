@@ -1,125 +1,97 @@
 'use client';
 
-import { useState } from 'react';
-import Clients from '../clientData/Clients';
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/DefaultLayout';
+import MainContent from './MainContent';
 
-import {
-  Button,
-  CircularProgress,
-  Container,
-  Grid,
-  MenuItem,
-  Select,
-  Snackbar,
-  TextField,
-  Typography,
-} from '@material-ui/core';
+const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
+  const [clients, setClients] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchCriteria, setSearchCriteria] = useState<string>('patientID'); // Default search criteria
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [openAlert, setOpenAlert] = useState<boolean>(false);
+  const dataPerPage: number = 6; // display 6 data in each page
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
 
-const Page = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [records, setRecords] = useState<string[]>([]);
-  const [openAlert, setOpenAlert] = useState(false);
-
-  const handleSearch = () => {
+  const handleSearch = async () => {
     setIsLoading(true);
-    // Simulate a search operation (replace this with your actual search logic)
-    setTimeout(() => {
+    try {
+      const filteredClients = clients.filter((client) => {
+        return Object.values(client).some(
+          (value) =>
+            typeof value === 'string' &&
+            value.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
+      });
+      setSearchResults(filteredClients);
       setIsLoading(false);
-      const searchResults: string[] = []; // Placeholder for search results
-      setRecords(searchResults);
-      if (searchResults.length === 0) {
+      if (filteredClients.length === 0) {
         setOpenAlert(true); // Show popup alert if no records found
       }
-    }, 2000);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setIsLoading(false);
+    }
   };
 
   const resetSearch = () => {
-    setRecords([]); // Reset noRecords state when performing a new search
+    setSearchResults([]); // Clear search results
+    setOpenAlert(false); // Close alert
+    setSearchQuery(''); // Clear search query
   };
 
-  const handleCloseAlert = (
-    event: React.SyntheticEvent | MouseEvent,
-    reason: string,
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/clients.json');
+        const data = await res.json();
+        setClients(data.clients);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Calculate total pages based on search results and items per page
+    setTotalPages(Math.ceil(searchResults.length / dataPerPage));
+  }, [searchResults, dataPerPage]);
+
+  const handleCloseAlert = () => {
     setOpenAlert(false);
   };
 
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const startIndex = (currentPage - 1) * dataPerPage;
+  const endIndex = startIndex + dataPerPage;
+  const currentData = searchResults.slice(startIndex, endIndex);
+
   return (
     <Navbar>
-      <Container>
-        <Grid
-          container
-          justifyContent="center"
-          alignItems="flex-start"
-          spacing={2}
-        >
-          <Grid item xs={12} md={2}></Grid>
-          <Grid item xs={12} md={9}>
-            <div className="main-content">
-              <Typography variant="h4">病歷查詢</Typography>
-              <div className="search-container flex">
-                <Select
-                  variant="outlined"
-                  className="mr-2 resize-y rounded border border-gray-300 p-2"
-                >
-                  <MenuItem value="patientID">病歷號碼</MenuItem>
-                  <MenuItem value="name">姓名</MenuItem>
-                  <MenuItem value="phoneNumber">電話號碼</MenuItem>
-                </Select>
-                <TextField
-                  variant="outlined"
-                  type="text"
-                  placeholder="輸入關鍵字"
-                  className="resize-y rounded border border-gray-300 p-2"
-                />
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className="rounded bg-blue-600 px-5 py-5 text-white"
-                  onClick={handleSearch}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    '搜尋'
-                  )}
-                </Button>
-              </div>
-              <Snackbar
-                open={openAlert}
-                autoHideDuration={5000}
-                onClose={handleCloseAlert}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                message="Opps, 查無符合資料"
-                action={
-                  <>
-                    <Button
-                      color="secondary"
-                      size="small"
-                      onClick={resetSearch}
-                    >
-                      ok
-                    </Button>
-                    <ErrorOutlineRoundedIcon
-                      fontSize="small"
-                      style={{ marginLeft: 8 }}
-                    />
-                  </>
-                }
-              />
-            </div>
-            <Clients />
-          </Grid>
-        </Grid>
-      </Container>
+      <MainContent
+        searchCriteria={searchCriteria}
+        setSearchCriteria={setSearchCriteria}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        handleSearch={handleSearch}
+        isLoading={isLoading}
+        openAlert={openAlert}
+        handleCloseAlert={handleCloseAlert}
+        currentData={currentData}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        paginate={paginate}
+        dataPerPage={dataPerPage}
+      />
     </Navbar>
   );
 };
+
 export default Page;
