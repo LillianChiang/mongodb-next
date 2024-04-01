@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Grid, Typography } from '@material-ui/core';
+import { Paper, Grid, Typography } from '@mui/material';
 
 interface Client {
   ID: number;

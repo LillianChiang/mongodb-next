@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Container } from '@material-ui/core';
+import { Typography, Container } from '@mui/material';
 import SearchBar from './SearchBar';
 import Alert from './Alert';
 import ClientList from './ClientList';
