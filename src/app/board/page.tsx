@@ -2,12 +2,9 @@
 
 
 import React, { useEffect, useState } from 'react';
-
-import ClientSearchResult from '../components/ClientSearchResult';
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
-
 import Navbar from '../components/DefaultLayout';
 import MainContent from './MainContent';
+
 
 const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
   const [clients, setClients] = useState<any[]>([]);
@@ -47,6 +44,7 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
     setSearchQuery(''); // Clear search query
   };
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -66,6 +64,7 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
     setTotalPages(Math.ceil(searchResults.length / dataPerPage));
   }, [searchResults, dataPerPage]);
 
+
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
@@ -80,7 +79,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
 
   return (
     <Navbar>
-
       <MainContent
         searchCriteria={searchCriteria}
         setSearchCriteria={setSearchCriteria}
@@ -97,7 +95,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
         dataPerPage={dataPerPage}
       />
 
-    
     </Navbar>
   );
 };

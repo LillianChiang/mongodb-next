@@ -142,6 +142,7 @@ export default function Dashboard({ children }: DashboardProps) {
             </List>
           </Drawer>
           <Box
+            className="pt-16"
             component="main"
             sx={{
               backgroundColor: (theme) =>

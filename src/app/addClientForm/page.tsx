@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Container, Typography, TextField, Button, Grid } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
-import Title from '../components/Title' ;
-
+import Navbar from '../components/DefaultLayout';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -46,10 +45,7 @@ const AddClientForm: React.FC = () => {
   };
 
   return (
-    <>
-      <div>
-        <Title> 慕福物理治療診所 Say goodbye to pain for good</Title>
-      </div>
+    <Navbar>
       <Container>
         <div className={classes.form}>
           <Typography variant="h5">新增個案資料</Typography>
@@ -168,7 +164,7 @@ const AddClientForm: React.FC = () => {
           </form>
         </div>
       </Container>
-    </>
+    </Navbar>
   );
 };
 
