@@ -1,42 +1,34 @@
 import React from 'react';
-import { Button, Typography } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 interface PaginationProps {
-  currentPage: number;
   totalPages: number;
-  paginate: (pageNumber: number) => void;
-  currentData: any[]; // Update this to match the type of your data
-  dataPerPage: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+  paginate: (pageNumber: number) => void; 
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
+export default function CustomerPagination({
   totalPages,
-  paginate,
-  currentData,
-  dataPerPage,
-}) => {
-  return (
-    <div>
-      <Button
-        onClick={() => paginate(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        上一頁
-      </Button>
-      <Typography>
-        {currentPage} / {totalPages}
-      </Typography>
-      <Button
-        onClick={() => paginate(currentPage + 1)}
-        disabled={
-          currentData.length < dataPerPage || currentPage === totalPages
-        }
-      >
-        下一頁
-      </Button>
-    </div>
-  );
-};
+  currentPage,
+  onPageChange,
+}: PaginationProps) {
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    onPageChange(value);
+  };
+  
 
-export default Pagination;
+  return (
+    <Stack spacing={2}>
+      <Pagination
+        count={totalPages}
+        page={currentPage}
+        onChange={handleChange}
+      />
+    </Stack>
+  );
+
+
+}
+

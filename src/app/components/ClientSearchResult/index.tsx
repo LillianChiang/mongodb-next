@@ -8,6 +8,7 @@ import personalInfo from '../../../mock/personalInfo.json';
 import Pagination from '../CustomerPagination';
 
 export default function ClientSearchResult() {
+  
   const router = useRouter();
 
   const handleAddClient = () => {

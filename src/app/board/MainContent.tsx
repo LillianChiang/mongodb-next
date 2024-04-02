@@ -21,6 +21,7 @@ interface MainContentProps {
   dataPerPage: number;
 }
 
+
 const MainContent: React.FC<MainContentProps> = ({
   searchCriteria,
   setSearchCriteria,
@@ -48,7 +49,7 @@ const MainContent: React.FC<MainContentProps> = ({
         isLoading={isLoading}
       />
       <Alert openAlert={openAlert} handleCloseAlert={handleCloseAlert} />
-      <Typography variant="h4">Client Board</Typography>
+ 
       <ClientList currentData={currentData} />
       <Pagination
         currentPage={currentPage}
