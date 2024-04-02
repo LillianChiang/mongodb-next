@@ -15,7 +15,7 @@ import {
   Snackbar,
   TextField,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,13 +39,17 @@ const Page = () => {
     setRecords([]); // Reset noRecords state when performing a new search
   };
 
-  const handleCloseAlert = (
-    event: React.SyntheticEvent | MouseEvent,
-    reason: string,
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  // const handleCloseAlert = (
+  //   event: React.SyntheticEvent | MouseEvent,
+  //   reason: string,
+  // ) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+  //   setOpenAlert(false);
+  // };
+
+  const handleCloseAlert = () => {
     setOpenAlert(false);
   };
 
@@ -58,14 +62,13 @@ const Page = () => {
           alignItems="flex-start"
           spacing={2}
         >
-          <Grid item xs={12} md={2}></Grid>
-          <Grid item xs={12} md={9}>
+          <Grid>
             <div className="main-content">
               <Typography variant="h4">病歷查詢</Typography>
-              <div className="search-container flex">
+              <div className="search-container my-1 flex space-x-2">
                 <Select
                   variant="outlined"
-                  className="mr-2 resize-y rounded border border-gray-300 p-2"
+                  className="my-2 w-36 resize-y rounded border border-gray-300"
                 >
                   <MenuItem value="patientID">病歷號碼</MenuItem>
                   <MenuItem value="name">姓名</MenuItem>
@@ -75,13 +78,13 @@ const Page = () => {
                   variant="outlined"
                   type="text"
                   placeholder="輸入關鍵字"
-                  className="resize-y rounded border border-gray-300 p-2"
+                  className="resize-y rounded p-2"
                 />
 
                 <Button
                   variant="contained"
                   color="primary"
-                  className="rounded bg-blue-600 px-5 py-5 text-white"
+                  className="my-2 rounded bg-blue-600 text-white"
                   onClick={handleSearch}
                   disabled={isLoading}
                 >
