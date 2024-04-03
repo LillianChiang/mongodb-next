@@ -14,7 +14,7 @@ import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Typography, TypographyProps, Link } from '@mui/material';
+import { Typography } from '@mui/material';
 import { listItems } from './listItems';
 
 interface DashboardProps {
@@ -75,7 +75,7 @@ const Drawer = styled(MuiDrawer, {
 const defaultTheme = createTheme();
 
 export default function Dashboard({ children }: DashboardProps) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -136,7 +136,10 @@ export default function Dashboard({ children }: DashboardProps) {
               </IconButton>
             </Toolbar>
             <Divider />
-            <List component="nav">{listItems()}</List>
+            <List component="nav">
+              {listItems()}
+              <Divider sx={{ my: 1 }} />
+            </List>
           </Drawer>
           <Box
             className="pt-16"

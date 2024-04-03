@@ -6,6 +6,7 @@ interface PaginationProps {
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
+  paginate: (pageNumber: number) => void; 
 }
 
 export default function CustomerPagination({
@@ -16,6 +17,7 @@ export default function CustomerPagination({
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     onPageChange(value);
   };
+  
 
   return (
     <Stack spacing={2}>

@@ -1,9 +1,14 @@
+
+'use client';
+
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import personalInfo from '../../../mock/personalInfo.json';
 import Pagination from '../CustomerPagination';
 
 export default function ClientSearchResult() {
+  
   const router = useRouter();
 
   const handleAddClient = () => {
@@ -108,4 +113,5 @@ export default function ClientSearchResult() {
       </div>
     </div>
   );
+
 }
