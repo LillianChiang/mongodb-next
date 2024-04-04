@@ -33,7 +33,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <TextField
         variant="outlined"
         type="text"
-        placeholder={`輸入 keyword${
+        placeholder={`輸入關鍵字${
           searchCriteria === 'patientID'
             ? ' '
             : searchCriteria === 'name'
