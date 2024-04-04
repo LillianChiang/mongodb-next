@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/DefaultLayout';
 import MainContent from './MainContent';
 
+
 const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
   const [clients, setClients] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -42,6 +43,7 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
     setSearchQuery(''); // Clear search query
   };
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,6 +62,7 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
     // Calculate total pages based on search results and items per page
     setTotalPages(Math.ceil(searchResults.length / dataPerPage));
   }, [searchResults, dataPerPage]);
+
 
   const handleCloseAlert = () => {
     setOpenAlert(false);
@@ -90,6 +93,7 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
         paginate={paginate}
         dataPerPage={dataPerPage}
       />
+
     </Navbar>
   );
 };

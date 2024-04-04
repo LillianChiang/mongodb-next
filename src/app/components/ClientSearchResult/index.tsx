@@ -40,12 +40,12 @@ export default function ClientSearchResult() {
   };
 
   return (
-    <div className="rounded-lg bg-purple-100 p-6">
+    <div className="mb-4 rounded-lg border-2 border-dashed border-gray-300 p-3">
       <h1 className="mb-4 text-2xl">Clients Information</h1>
       <div className="flex flex-wrap items-center justify-center">
         {currentClients.map((item) => (
           <React.Fragment key={item.id}>
-            <div className="m-2 min-w-[400px] space-y-1 bg-[#DDE9FD] p-2 shadow-md">
+            <div className="m-2 min-w-[400px] space-y-1 rounded-md bg-[#DDE9FD] p-2 shadow-md">
               <div className="grid grid-cols-4">
                 <span className="col-span-1">ID:</span>
                 <span className="col-span-3">{item.id}</span>
