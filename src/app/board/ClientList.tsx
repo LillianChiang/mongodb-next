@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { Paper, Grid, Typography, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import clients from '../../../../move-for-healthpt-next/public/clients.json';
 import Pagination from './Pagination';
 
 interface Client {

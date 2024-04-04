@@ -1,11 +1,6 @@
 'use client';
 
-
 import React, { useEffect, useState } from 'react';
-
-import ClientSearchResult from '../components/ClientSearchResult';
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
-
 import Navbar from '../components/DefaultLayout';
 import MainContent from './MainContent';
 
@@ -80,7 +75,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
 
   return (
     <Navbar>
-
       <MainContent
         searchCriteria={searchCriteria}
         setSearchCriteria={setSearchCriteria}
@@ -96,8 +90,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
         paginate={paginate}
         dataPerPage={dataPerPage}
       />
-
-    
     </Navbar>
   );
 };

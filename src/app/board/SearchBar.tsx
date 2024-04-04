@@ -20,7 +20,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   return (
     <div className="search-container flex">
-      <Select
+      {/* <Select
         variant="outlined"
         className="my-2 w-36 resize-y rounded border border-gray-300"
         value={searchCriteria}
@@ -28,17 +28,17 @@ const SearchBar: React.FC<SearchBarProps> = ({
       >
         <MenuItem value="patientID">病歷號碼</MenuItem>
         <MenuItem value="name">姓名</MenuItem>
-        <MenuItem value="phoneNumber">電話號碼</MenuItem>
-      </Select>
+        <MenuItem value="phoneNumber">電話號碼</MenuItem> */}
+      {/* </Select> */}
       <TextField
         variant="outlined"
         type="text"
-        placeholder={`輸入${
+        placeholder={`輸入 keyword${
           searchCriteria === 'patientID'
-            ? '病歷號碼'
+            ? ' '
             : searchCriteria === 'name'
-              ? '姓名'
-              : '電話號碼'
+              ? ' '
+              : ' '
         }`}
         className="resize-y rounded p-2"
         value={searchQuery}
