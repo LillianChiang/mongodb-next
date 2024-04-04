@@ -1,34 +1,31 @@
 import React from 'react';
 import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
 
 interface PaginationProps {
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
-  paginate: (pageNumber: number) => void; 
+  dataPerPage: number; 
 }
 
 export default function CustomerPagination({
   totalPages,
   currentPage,
-  onPageChange,
+  onPageChange
 }: PaginationProps) {
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     onPageChange(value);
   };
-  
 
   return (
-    <Stack spacing={2}>
-      <Pagination
-        count={totalPages}
-        page={currentPage}
-        onChange={handleChange}
-      />
-    </Stack>
+    <Pagination
+      count={totalPages}  // Using 'count' instead of 'totalPages'
+      page={currentPage}  // Using 'page' instead of 'currentPage'
+      onChange={handleChange}  // Using 'onChange' instead of 'onPageChange'
+    />
   );
-
-
 }
+
+
+
 

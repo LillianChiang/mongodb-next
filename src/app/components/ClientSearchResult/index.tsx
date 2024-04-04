@@ -1,11 +1,21 @@
 
 'use client';
-
-
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import personalInfo from '../../../mock/personalInfo.json';
 import Pagination from '../CustomerPagination';
+import personalInfo from '../../../mock/personalInfo.json';
+import { Table, TableBody, TableCell, TableHead, TableRow, Button } from '@mui/material';
+
+// Define the type for the items in personalInfo array
+interface ClientInfo {
+  id: number;
+  name: string;
+  idNumber: string;
+  gender: string;
+  birthday: string;
+  phoneNumber: string;
+  mobileNumber: string;
+}
 
 export default function ClientSearchResult() {
   
@@ -26,13 +36,14 @@ export default function ClientSearchResult() {
   const handleDeleteClient = () => {
     // Logic for deleting a client
   };
+
   const [currentPage, setCurrentPage] = useState(1);
   const clientPerPage = 10; // 每頁顯示筆數
   const totalPages = Math.ceil(personalInfo.length / clientPerPage);
   // 根據目前頁數，計算要顯示的使用者數據
   const indexOfLast = currentPage * clientPerPage;
   const indexOfFirst = indexOfLast - clientPerPage;
-  const currentClients = personalInfo.slice(indexOfFirst, indexOfLast);
+  const currentClients: ClientInfo[] = personalInfo.slice(indexOfFirst, indexOfLast); // Explicitly define type
 
   // 換頁
   const handlePageChange = (page: number) => {
@@ -42,68 +53,47 @@ export default function ClientSearchResult() {
   return (
     <div className="mb-4 rounded-lg border-2 border-dashed border-gray-300 p-3">
       <h1 className="mb-4 text-2xl">Clients Information</h1>
-      <div className="flex flex-wrap items-center justify-center">
-        {currentClients.map((item) => (
-          <React.Fragment key={item.id}>
-            <div className="m-2 min-w-[400px] space-y-1 rounded-md bg-[#DDE9FD] p-2 shadow-md">
-              <div className="grid grid-cols-4">
-                <span className="col-span-1">ID:</span>
-                <span className="col-span-3">{item.id}</span>
-              </div>
-              <div className="grid grid-cols-4">
-                <span className="col-span-1">姓名:</span>
-                <span className="col-span-3">{item.name}</span>
-              </div>
-              <div className="grid grid-cols-4">
-                <span className="col-span-1">ID Number:</span>
-                <span className="col-span-3">{item.idNumber}</span>
-              </div>
-              <div className="grid grid-cols-4">
-                <span className="col-span-1">Gender:</span>
-                <span className="col-span-3">{item.gender}</span>
-              </div>
-              <div className="grid grid-cols-4">
-                <span className="col-span-1">生日:</span>
-                <span className="col-span-3">{item.birthday}</span>
-              </div>
-              <div className="grid grid-cols-4">
-                <span className="col-span-1">電話號碼:</span>
-                <span className="col-span-3">{item.phoneNumber}</span>
-              </div>
-              <div className="grid grid-cols-4">
-                <span className="col-span-1">手機號碼:</span>
-                <span className="col-span-3">{item.mobileNumber}</span>
-              </div>
-              <div>
-                <button
-                  onClick={handleAddClient}
-                  className="bg-yellow mr-2 rounded-md px-2 py-1"
-                >
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell>姓名</TableCell>
+            <TableCell>ID Number</TableCell>
+            <TableCell>Gender</TableCell>
+            <TableCell>生日</TableCell>
+            <TableCell>電話號碼</TableCell>
+            <TableCell>手機號碼</TableCell>
+            <TableCell>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {currentClients.map((item: ClientInfo) => ( // Specify type here
+            <TableRow key={item.id}>
+              <TableCell>{item.id}</TableCell>
+              <TableCell>{item.name}</TableCell>
+              <TableCell>{item.idNumber}</TableCell>
+              <TableCell>{item.gender}</TableCell>
+              <TableCell>{item.birthday}</TableCell>
+              <TableCell>{item.phoneNumber}</TableCell>
+              <TableCell>{item.mobileNumber}</TableCell>
+              <TableCell>
+                <Button onClick={handleAddClient} variant="contained" color="warning" className="mr-2">
                   Add
-                </button>
-                <button
-                  onClick={handleEditClient}
-                  className="bg-blue mr-2 rounded-md px-2 py-1"
-                >
+                </Button>
+                <Button onClick={handleEditClient} variant="contained" color="primary" className="mr-2">
                   Edit
-                </button>
-                <button
-                  onClick={handleViewInfo}
-                  className="bg-pink mr-2 rounded-md px-2 py-1"
-                >
+                </Button>
+                <Button onClick={handleViewInfo} variant="contained" color="secondary" className="mr-2">
                   View Info
-                </button>
-                <button
-                  onClick={handleDeleteClient}
-                  className="bg-green rounded-md px-2 py-1"
-                >
+                </Button>
+                <Button onClick={handleDeleteClient} variant="contained" color="success">
                   Delete
-                </button>
-              </div>
-            </div>
-          </React.Fragment>
-        ))}
-      </div>
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
       <div className="flex justify-center">
         <Pagination
           totalPages={totalPages}

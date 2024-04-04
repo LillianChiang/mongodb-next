@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/DefaultLayout';
 import MainContent from './MainContent';
 
-
 const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
   const [clients, setClients] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -14,7 +13,7 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
   const [openAlert, setOpenAlert] = useState<boolean>(false);
   const dataPerPage: number = 6; // display 6 data in each page
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(10);
 
   const handleSearch = async () => {
     setIsLoading(true);
@@ -43,7 +42,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
     setSearchQuery(''); // Clear search query
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,7 +61,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
     setTotalPages(Math.ceil(searchResults.length / dataPerPage));
   }, [searchResults, dataPerPage]);
 
-
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
@@ -71,6 +68,8 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  
 
   const startIndex = (currentPage - 1) * dataPerPage;
   const endIndex = startIndex + dataPerPage;
@@ -93,7 +92,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
         paginate={paginate}
         dataPerPage={dataPerPage}
       />
-
     </Navbar>
   );
 };

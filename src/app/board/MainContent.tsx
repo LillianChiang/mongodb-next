@@ -17,10 +17,9 @@ interface MainContentProps {
   currentData: any[]; // Update this to match the type of your data
   currentPage: number;
   totalPages: number;
-  paginate: (pageNumber: number) => void;
   dataPerPage: number;
+  onPageChange: (page: number) => void; 
 }
-
 
 const MainContent: React.FC<MainContentProps> = ({
   searchCriteria,
@@ -34,9 +33,13 @@ const MainContent: React.FC<MainContentProps> = ({
   currentData,
   currentPage,
   totalPages,
-  paginate,
   dataPerPage,
+  onPageChange,
 }) => {
+  const handlePageChange = (page: number) => {
+    onPageChange(page); // Call onPageChange prop with the page number
+  };
+
   return (
     <Container>
       <Typography variant="h4">病歷查詢</Typography>
@@ -54,9 +57,8 @@ const MainContent: React.FC<MainContentProps> = ({
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        paginate={paginate}
-        currentData={currentData}
         dataPerPage={dataPerPage}
+        onPageChange={handlePageChange}
       />
     </Container>
   );
