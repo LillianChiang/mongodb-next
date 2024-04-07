@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, MenuItem, TextField, Button } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 
 interface SearchBarProps {
   searchCriteria: string;
@@ -20,16 +20,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   return (
     <div className="search-container flex">
-      {/* <Select
-        variant="outlined"
-        className="my-2 w-36 resize-y rounded border border-gray-300"
-        value={searchCriteria}
-        onChange={(e) => setSearchCriteria(e.target.value as string)}
-      >
-        <MenuItem value="patientID">病歷號碼</MenuItem>
-        <MenuItem value="name">姓名</MenuItem>
-        <MenuItem value="phoneNumber">電話號碼</MenuItem> */}
-      {/* </Select> */}
       <TextField
         variant="outlined"
         type="text"

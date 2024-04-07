@@ -21,10 +21,10 @@ export default function CustomerPagination({
     <Pagination
       count={totalPages}  // Using 'count' instead of 'totalPages'
       page={currentPage}  // Using 'page' instead of 'currentPage'
-      onChange={handleChange}  // Using 'onChange' instead of 'onPageChange'
-    />
+      onChange={handleChange} // Using 'onChange' instead of 'onPageChange'
+      ></Pagination>
   );
-}
+};
 
 
 

@@ -3,16 +3,20 @@
 import React, { useState } from 'react';
 import { Paper, Grid, Typography, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import Pagination from './Pagination';
+// import Pagination from './Pagination';
 
+enum Gender {
+  Male = 'male',
+  Female = 'female',
+}
 interface Client {
   ID: number;
-  姓名: string;
-  證件號碼: string;
-  性別: string;
-  生日: string;
-  電話號碼: string;
-  手機號碼: string;
+  name: string;
+  idNumber: string;
+  gender: Gender;
+  birthday: string;
+  phoneNumber: string;
+  mobileNumber: string;
 }
 
 interface ClientListProps {
@@ -27,15 +31,15 @@ const ClientList: React.FC<ClientListProps> = ({ currentData }) => {
   };
 
   const handleEditClient = (clientId: number) => {
-    router.push(`/editTreatmentForm/${clientId}`);
+    router.push('/editTreatmentForm');
   };
 
   const handleViewInfo = (clientId: number) => {
-    // Logic for viewing detailed information of a client
+    router.push('/viewTreatmentForm');
   };
 
   const handleDeleteClient = (clientId: number) => {
-    // Logic for deleting a client
+    router.push('/deleteTreatmentForm');
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,44 +50,49 @@ const ClientList: React.FC<ClientListProps> = ({ currentData }) => {
   const indexOfFirst = indexOfLast - clientPerPage;
   const currentClients = currentData.slice(indexOfFirst, indexOfLast);
 
-
   // 換頁
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   return (
-    <Paper elevation={3} style={{ backgroundColor: 'lightblue', padding: '10px' }}>
+    <Paper
+      elevation={3}
+      style={{ backgroundColor: 'lightblue', padding: '10px' }}
+    >
       <Grid container spacing={2}>
         {currentData.map((client) => (
           <Grid key={client.ID} item xs={6}>
             <ul>
               <li>
                 <Typography>ID: {client.ID}</Typography>
-                <Typography>姓名: {client['姓名']}</Typography>
-                <Typography>證件號碼: {client['證件號碼']}</Typography>
-                <Typography>性別: {client['性別']}</Typography>
-                <Typography>生日: {client['生日']}</Typography>
-                <Typography>電話號碼: {client['電話號碼']}</Typography>
-                <Typography>手機號碼: {client['手機號碼']}</Typography>
+                <Typography>姓名: {client['name']}</Typography>
+                <Typography>證件號碼: {client['idNumber']}</Typography>
+                <Typography>性別: {client['gender']}</Typography>
+                <Typography>生日: {client['birthday']}</Typography>
+                <Typography>電話號碼: {client['phoneNumber']}</Typography>
+                <Typography>手機號碼: {client['mobileNumber']}</Typography>
                 <Button onClick={handleAddClient}>Add </Button>
-                <Button onClick={() => handleEditClient(client.ID)}>Edit</Button>
+                <Button onClick={() => handleEditClient(client.ID)}>
+                  Edit
+                </Button>
                 <Button onClick={() => handleViewInfo(client.ID)}>View</Button>
-                <Button onClick={() => handleDeleteClient(client.ID)}>Delete</Button>
+                <Button onClick={() => handleDeleteClient(client.ID)}>
+                  Delete
+                </Button>
               </li>
             </ul>
           </Grid>
         ))}
       </Grid>
-      <div className="flex justify-center">
-    <Pagination
-      totalPages={totalPages}
-      currentPage={currentPage}
-      onPageChange={handlePageChange}
-    />
-  </div>
+      {/* <div className="flex justify-center">
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      </div> */}
     </Paper>
-   
   );
 };
 
