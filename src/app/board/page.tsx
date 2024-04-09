@@ -27,19 +27,12 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
       });
       setSearchResults(filteredClients);
       setIsLoading(false);
-      if (filteredClients.length === 0) {
-        setOpenAlert(true); // Show popup alert if no records found
-      }
+      setOpenAlert(filteredClients.length === 0); // Show popup alert if no records found
     } catch (error) {
       console.error('Error fetching data:', error);
       setIsLoading(false);
+      setOpenAlert(true); // Show popup alert if error occurs
     }
-  };
-
-  const resetSearch = () => {
-    setSearchResults([]); // Clear search results
-    setOpenAlert(false); // Close alert
-    setSearchQuery(''); // Clear search query
   };
 
   useEffect(() => {
@@ -50,6 +43,7 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
         setClients(data.clients);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setOpenAlert(true); // Show popup alert if error occurs
       }
     };
 
@@ -68,8 +62,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-
-  
 
   const startIndex = (currentPage - 1) * dataPerPage;
   const endIndex = startIndex + dataPerPage;
@@ -90,7 +82,7 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
         currentPage={currentPage}
         totalPages={totalPages}
         paginate={paginate}
-        dataPerPage={dataPerPage}
+        dataPerPage={dataPerPage} // Make sure to include dataPerPage here
       />
     </Navbar>
   );

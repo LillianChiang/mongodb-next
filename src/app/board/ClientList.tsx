@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Paper, Grid, Typography, Button } from '@mui/material';
+import { Paper, Grid, Typography, Button, Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
-// import Pagination from './Pagination';
+import Pagination from './Pagination';
 
 enum Gender {
   Male = 'male',
@@ -13,10 +13,10 @@ interface Client {
   ID: number;
   name: string;
   idNumber: string;
-  gender: Gender;
+  Gender: Gender;
   birthday: string;
-  phoneNumber: string;
-  mobileNumber: string;
+  phone: string;
+  mobile: string;
 }
 
 interface ClientListProps {
@@ -63,35 +63,39 @@ const ClientList: React.FC<ClientListProps> = ({ currentData }) => {
       <Grid container spacing={2}>
         {currentData.map((client) => (
           <Grid key={client.ID} item xs={6}>
-            <ul>
-              <li>
-                <Typography>ID: {client.ID}</Typography>
-                <Typography>姓名: {client['name']}</Typography>
-                <Typography>證件號碼: {client['idNumber']}</Typography>
-                <Typography>性別: {client['gender']}</Typography>
-                <Typography>生日: {client['birthday']}</Typography>
-                <Typography>電話號碼: {client['phoneNumber']}</Typography>
-                <Typography>手機號碼: {client['mobileNumber']}</Typography>
-                <Button onClick={handleAddClient}>Add </Button>
-                <Button onClick={() => handleEditClient(client.ID)}>
-                  Edit
-                </Button>
-                <Button onClick={() => handleViewInfo(client.ID)}>View</Button>
-                <Button onClick={() => handleDeleteClient(client.ID)}>
-                  Delete
-                </Button>
-              </li>
-            </ul>
+            <Box border={5} borderColor="white" borderRadius={8} padding={2}>
+              <ul>
+                <li>
+                  <Typography>ID: {client.ID}</Typography>
+                  <Typography>姓名: {client['name']}</Typography>
+                  <Typography>證件號碼: {client['idNumber']}</Typography>
+                  <Typography>性別: {client['Gender']}</Typography>
+                  <Typography>生日: {client['birthday']}</Typography>
+                  <Typography>電話號碼: {client['phone']}</Typography>
+                  <Typography>手機號碼: {client['mobile']}</Typography>
+                  <Button onClick={handleAddClient}>Add </Button>
+                  <Button onClick={() => handleEditClient(client.ID)}>
+                    Edit
+                  </Button>
+                  <Button onClick={() => handleViewInfo(client.ID)}>
+                    View
+                  </Button>
+                  <Button onClick={() => handleDeleteClient(client.ID)}>
+                    Delete
+                  </Button>
+                </li>
+              </ul>
+            </Box>
           </Grid>
         ))}
       </Grid>
-      {/* <div className="flex justify-center">
+      <div className="flex justify-center">
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />
-      </div> */}
+      </div>
     </Paper>
   );
 };

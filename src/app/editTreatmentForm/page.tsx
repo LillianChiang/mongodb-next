@@ -1,29 +1,26 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { TextField, Container, Grid, Button } from '@mui/material';
 
 interface ClientData {
   ID: number;
   name: string;
-  'ID Number': string;
+  IdNumber: string;
   Gender: string;
   birthday: string;
   phone: string;
   mobile: string;
- 
 }
 
 const EditClient = () => {
   const [clientData, setClientData] = useState<ClientData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [clientName, setClientName] = useState('');
-  const [IdNumber, setIdNumber] = useState('');
-  const [gender, setGender] = useState('');
-  const [phone, setPhone] = useState('');
-  const [mobile, setMobile] = useState('');
+  const [clientId, setClientId] = useState<number | null>(1);
 
   useEffect(() => {
+    if (!clientId) return;
     fetch('clients.json')
       .then((response) => {
         if (!response.ok) {
@@ -31,17 +28,12 @@ const EditClient = () => {
         }
         return response.json();
       })
-      .then((data) => {
-        if (data.clients && data.clients.length > 0) {
-          const firstClient = data.clients[0];
-          setClientData(firstClient);
-          setClientName(firstClient['name']);
-          setIdNumber(firstClient['ID Number']);
-          setGender(firstClient.Gender);
-          setPhone(firstClient['電話號碼']);
-          setMobile(firstClient['手機號碼']);
+      .then((data: { clients: ClientData[] }) => {
+        const client = data.clients.find((client) => client.ID === clientId);
+        if (client) {
+          setClientData(client);
         } else {
-          setError('No client data found');
+          setError('Client not found');
         }
         setLoading(false);
       })
@@ -50,10 +42,20 @@ const EditClient = () => {
         setError('Error fetching client data');
         setLoading(false);
       });
-  }, []);
+  }, [clientId]);
 
-  const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
-    // Handle the edit action here
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    field: keyof ClientData,
+  ) => {
+    if (clientData) {
+      setClientData({ ...clientData, [field]: e.target.value });
+    }
+  };
+
+  const handleSaveClick = () => {
+    // Handle saving client data, for example, sending it to a server
+    console.log('Saving client data:', clientData);
   };
 
   if (loading) {
@@ -71,59 +73,59 @@ const EditClient = () => {
   return (
     <Container>
       <h1>Edit Client</h1>
-      <form onSubmit={handleEdit}>
+      <form>
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <TextField
               label="Client ID"
               value={clientData.ID.toString()}
-              disabled
               fullWidth
+              disabled
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               label="Name"
               value={clientData['name']}
-              onChange={(e) => setClientData({...clientData, name: e.target.value })}
               fullWidth
+              onChange={(e) => handleInputChange(e, 'name')}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
-              label="ID Number"
-              value={clientData['ID Number']}
-              onChange={(e) => setIdNumber(e.target.value)}
+              label="Id Number"
+              value={clientData['IdNumber']}
               fullWidth
+              onChange={(e) => handleInputChange(e, 'IdNumber')}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               label="Gender"
               value={clientData['Gender']}
-              onChange={(e) => setGender(e.target.value)}
               fullWidth
+              onChange={(e) => handleInputChange(e, 'Gender')}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               label="Phone"
-              value={clientData['電話號碼']}
-              onChange={(e) => setPhone(e.target.value)}
+              value={clientData['phone']}
               fullWidth
+              onChange={(e) => handleInputChange(e, 'phone')}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               label="Mobile"
-              value={clientData['手機號碼']}
-              onChange={(e) => setMobile(e.target.value)}
+              value={clientData['mobile']}
               fullWidth
+              onChange={(e) => handleInputChange(e, 'mobile')}
             />
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
-              Save
+            <Button variant="contained" onClick={handleSaveClick}>
+              SAVE
             </Button>
           </Grid>
         </Grid>

@@ -8,11 +8,12 @@ interface SearchBarProps {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   handleSearch: () => void;
   isLoading: boolean;
+  openAlert: boolean;
+  handleCloseAlert: () => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
   searchCriteria,
-  setSearchCriteria,
   searchQuery,
   setSearchQuery,
   handleSearch,

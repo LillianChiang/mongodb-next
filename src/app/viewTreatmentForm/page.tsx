@@ -9,8 +9,8 @@ interface ClientData {
   IdNumber: string;
   Gender: string;
   birthday: string;
-  phoneNumber: string;
-  mobileNumber: string;
+  phone: string;
+  mobile: string;
 }
 
 const ViewClient = () => {
@@ -71,10 +71,10 @@ const ViewClient = () => {
             <TextField label="Gender" value={clientData['Gender']} fullWidth disabled />
           </Grid>
           <Grid item xs={6}>
-            <TextField label="Phone" value={clientData['phoneNumber']} fullWidth disabled />
+            <TextField label="Phone" value={clientData['phone']} fullWidth disabled />
           </Grid>
           <Grid item xs={6}>
-            <TextField label="Mobile" value={clientData['mobileNumber']} fullWidth disabled />
+            <TextField label="Mobile" value={clientData['mobile']} fullWidth disabled />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" onClick={() => handleViewClick(clientData)}>View</Button>
