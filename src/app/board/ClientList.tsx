@@ -5,15 +5,15 @@ import { Paper, Grid, Typography, Button, Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Pagination from './Pagination';
 
-enum Gender {
+enum gender {
   Male = 'male',
   Female = 'female',
 }
 interface Client {
-  ID: number;
+  id: number;
   name: string;
   idNumber: string;
-  Gender: Gender;
+  gender: gender;
   birthday: string;
   phone: string;
   mobile: string;
@@ -62,25 +62,25 @@ const ClientList: React.FC<ClientListProps> = ({ currentData }) => {
     >
       <Grid container spacing={2}>
         {currentData.map((client) => (
-          <Grid key={client.ID} item xs={6}>
+          <Grid key={client.id} item xs={6}>
             <Box border={5} borderColor="white" borderRadius={8} padding={2}>
               <ul>
                 <li>
-                  <Typography>ID: {client.ID}</Typography>
+                  <Typography>ID: {client.id}</Typography>
                   <Typography>姓名: {client['name']}</Typography>
                   <Typography>證件號碼: {client['idNumber']}</Typography>
-                  <Typography>性別: {client['Gender']}</Typography>
+                  <Typography>性別: {client['gender']}</Typography>
                   <Typography>生日: {client['birthday']}</Typography>
                   <Typography>電話號碼: {client['phone']}</Typography>
                   <Typography>手機號碼: {client['mobile']}</Typography>
                   <Button onClick={handleAddClient}>Add </Button>
-                  <Button onClick={() => handleEditClient(client.ID)}>
+                  <Button onClick={() => handleEditClient(client.id)}>
                     Edit
                   </Button>
-                  <Button onClick={() => handleViewInfo(client.ID)}>
+                  <Button onClick={() => handleViewInfo(client.id)}>
                     View
                   </Button>
-                  <Button onClick={() => handleDeleteClient(client.ID)}>
+                  <Button onClick={() => handleDeleteClient(client.id)}>
                     Delete
                   </Button>
                 </li>
