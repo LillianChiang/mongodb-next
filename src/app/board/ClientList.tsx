@@ -1,19 +1,32 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Paper, Grid, Typography, Button } from '@mui/material';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Button,
+  TablePagination,
+} from '@mui/material';
 import { useRouter } from 'next/navigation';
-import clients from '../../../../move-for-healthpt-next/public/clients.json';
-import Pagination from './Pagination';
+
+enum Gender {
+  Male = 'male',
+  Female = 'female',
+}
 
 interface Client {
-  ID: number;
-  姓名: string;
-  證件號碼: string;
-  性別: string;
-  生日: string;
-  電話號碼: string;
-  手機號碼: string;
+  id: number;
+  name: string;
+  idNumber: string;
+  gender: Gender;
+  birthday: string;
+  phone: string;
+  mobile: string;
 }
 
 interface ClientListProps {
@@ -32,59 +45,77 @@ const ClientList: React.FC<ClientListProps> = ({ currentData }) => {
   };
 
   const handleViewInfo = (clientId: number) => {
-    // Logic for viewing detailed information of a client
+    router.push(`/viewTreatmentForm/${clientId}`);
   };
 
   const handleDeleteClient = (clientId: number) => {
-    // Logic for deleting a client
+    router.push(`/deleteTreatmentForm/${clientId}`);
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const clientPerPage = 10; // 每頁顯示筆數
-  const totalPages = Math.ceil(currentData.length / clientPerPage);
-  // 根據目前頁數，計算要顯示的使用者數據
-  const indexOfLast = currentPage * clientPerPage;
-  const indexOfFirst = indexOfLast - clientPerPage;
-  const currentClients = currentData.slice(indexOfFirst, indexOfLast);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
 
-  // 換頁
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset page when changing rowsPerPage
   };
 
   return (
     <Paper elevation={3} style={{ backgroundColor: 'lightblue', padding: '10px' }}>
-      <Grid container spacing={2}>
-        {currentData.map((client) => (
-          <Grid key={client.ID} item xs={6}>
-            <ul>
-              <li>
-                <Typography>ID: {client.ID}</Typography>
-                <Typography>姓名: {client['姓名']}</Typography>
-                <Typography>證件號碼: {client['證件號碼']}</Typography>
-                <Typography>性別: {client['性別']}</Typography>
-                <Typography>生日: {client['生日']}</Typography>
-                <Typography>電話號碼: {client['電話號碼']}</Typography>
-                <Typography>手機號碼: {client['手機號碼']}</Typography>
-                <Button onClick={handleAddClient}>Add </Button>
-                <Button onClick={() => handleEditClient(client.ID)}>Edit</Button>
-                <Button onClick={() => handleViewInfo(client.ID)}>View</Button>
-                <Button onClick={() => handleDeleteClient(client.ID)}>Delete</Button>
-              </li>
-            </ul>
-          </Grid>
-        ))}
-      </Grid>
-      <div className="flex justify-center">
-    <Pagination
-      totalPages={totalPages}
-      currentPage={currentPage}
-      onPageChange={handlePageChange}
-    />
-  </div>
+      <TableContainer>
+        <Table sx={{ minWidth: 650 }}>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>姓名</TableCell>
+              <TableCell>證件號碼</TableCell>
+              <TableCell>性別</TableCell>
+              <TableCell>生日</TableCell>
+              <TableCell>電話號碼</TableCell>
+              <TableCell>手機號碼</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {currentData
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((client) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={client.id}>
+                  <TableCell>{client.id}</TableCell>
+                  <TableCell>{client.name}</TableCell>
+                  <TableCell>{client.idNumber}</TableCell>
+                  <TableCell>{client.gender}</TableCell>
+                  <TableCell>{client.birthday}</TableCell>
+                  <TableCell>{client.phone}</TableCell>
+                  <TableCell>{client.mobile}</TableCell>
+                  <TableCell>
+                    <Button onClick={handleAddClient}>Add</Button>
+                    <Button onClick={() => handleEditClient(client.id)}>Edit</Button>
+                    <Button onClick={() => handleViewInfo(client.id)}>View</Button>
+                    <Button onClick={() => handleDeleteClient(client.id)}>Delete</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <TablePagination
+        component="div"
+        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPage={rowsPerPage}
+        count={currentData.length}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Paper>
-   
   );
 };
 
