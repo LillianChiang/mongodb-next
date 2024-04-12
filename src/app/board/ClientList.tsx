@@ -1,9 +1,20 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Paper, Grid, Typography, Button, Box } from '@mui/material';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Button,
+  Box,
+  TablePagination,
+} from '@mui/material';
 import { useRouter } from 'next/navigation';
-import Pagination from './Pagination';
+
 
 enum gender {
   Male = 'male',
@@ -43,59 +54,63 @@ const ClientList: React.FC<ClientListProps> = ({ currentData }) => {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const clientPerPage = 10; // 每頁顯示筆數
+  const clientPerPage = 10;
   const totalPages = Math.ceil(currentData.length / clientPerPage);
-  // 根據目前頁數，計算要顯示的使用者數據
+
   const indexOfLast = currentPage * clientPerPage;
   const indexOfFirst = indexOfLast - clientPerPage;
   const currentClients = currentData.slice(indexOfFirst, indexOfLast);
 
-  // 換頁
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   return (
-    <Paper
-      elevation={3}
-      style={{ backgroundColor: 'lightblue', padding: '10px' }}
-    >
-      <Grid container spacing={2}>
-        {currentData.map((client) => (
-          <Grid key={client.id} item xs={6}>
-            <Box border={5} borderColor="white" borderRadius={8} padding={2}>
-              <ul>
-                <li>
-                  <Typography>ID: {client.id}</Typography>
-                  <Typography>姓名: {client['name']}</Typography>
-                  <Typography>證件號碼: {client['idNumber']}</Typography>
-                  <Typography>性別: {client['gender']}</Typography>
-                  <Typography>生日: {client['birthday']}</Typography>
-                  <Typography>電話號碼: {client['phone']}</Typography>
-                  <Typography>手機號碼: {client['mobile']}</Typography>
-                  <Button onClick={handleAddClient}>Add </Button>
-                  <Button onClick={() => handleEditClient(client.id)}>
-                    Edit
-                  </Button>
-                  <Button onClick={() => handleViewInfo(client.id)}>
-                    View
-                  </Button>
-                  <Button onClick={() => handleDeleteClient(client.id)}>
-                    Delete
-                  </Button>
-                </li>
-              </ul>
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
-      <div className="flex justify-center">
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
-      </div>
+    <Paper elevation={3} style={{ backgroundColor: 'lightblue', padding: '10px' }}>
+      <TableContainer>
+        <Table sx={{ minWidth: 650 }}>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>姓名</TableCell>
+              <TableCell>證件號碼</TableCell>
+              <TableCell>性別</TableCell>
+              <TableCell>生日</TableCell>
+              <TableCell>電話號碼</TableCell>
+              <TableCell>手機號碼</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {currentClients.map((client) => (
+              <TableRow key={client.id}>
+                <TableCell>{client.id}</TableCell>
+                <TableCell>{client.name}</TableCell>
+                <TableCell>{client.idNumber}</TableCell>
+                <TableCell>{client.gender}</TableCell>
+                <TableCell>{client.birthday}</TableCell>
+                <TableCell>{client.phone}</TableCell>
+                <TableCell>{client.mobile}</TableCell>
+                <TableCell>
+                  <Button onClick={handleAddClient}>Add</Button>
+                  <Button onClick={() => handleEditClient(client.id)}>Edit</Button>
+                  <Button onClick={() => handleViewInfo(client.id)}>View</Button>
+                  <Button onClick={() => handleDeleteClient(client.id)}>Delete</Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={currentData.length}
+        rowsPerPage={clientPerPage}
+        page={currentPage - 1}
+        onPageChange={(_, page) => handlePageChange(page + 1)}
+      />
     </Paper>
   );
 };

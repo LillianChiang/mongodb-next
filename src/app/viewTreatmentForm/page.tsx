@@ -59,7 +59,7 @@ const ViewClient = () => {
       <form>
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <TextField label="Client ID" value={clientData.ID.toString()} fullWidth disabled />
+            <TextField label="Client ID" value={clientData.id.toString()} fullWidth disabled />
           </Grid>
           <Grid item xs={6}>
             <TextField label="Name" value={clientData['name']} fullWidth disabled />

@@ -11,8 +11,10 @@ interface ClientData {
 }
 
 export default function Client() {
-  const router = useRouter();
-  const { id } = router.query;
+  const { params } = useRouter();
+  const { id } = params;
+
+  const client = clients.filter(client => client.id) == id)
 
   if (!id || typeof id !== 'string') {
     return <div>Loading...</div>;

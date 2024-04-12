@@ -3,7 +3,6 @@ import { Typography, Container } from '@mui/material';
 import SearchBar from './SearchBar';
 import Alert from './Alert';
 import ClientList from './ClientList';
-import Pagination from './Pagination';
 
 interface MainContentProps {
   searchCriteria: string;
@@ -29,14 +28,12 @@ const MainContent: React.FC<MainContentProps> = ({
   searchQuery,
   setSearchQuery,
   handleSearch,
-  resetSearch,
   isLoading,
   openAlert,
   handleCloseAlert,
   currentData,
   currentPage,
   totalPages,
-  paginate,
   dataPerPage,
   onPageChange, // Include onPageChange prop in the component
 }) => {
@@ -60,12 +57,6 @@ const MainContent: React.FC<MainContentProps> = ({
       <Alert openAlert={openAlert} handleCloseAlert={handleCloseAlert} />
 
       <ClientList currentData={currentData} />
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        dataPerPage={dataPerPage}
-        onPageChange={handlePageChange}
-      />
     </Container>
   );
 };

@@ -3,11 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Container, Grid, Button } from '@mui/material';
 
+
 interface ClientData {
-  ID: number;
+  id: number;
   name: string;
-  IdNumber: string;
-  Gender: string;
+  idNumber: string;
+  gender: string;
   birthday: string;
   phone: string;
   mobile: string;
@@ -29,7 +30,7 @@ const EditClient = () => {
         return response.json();
       })
       .then((data: { clients: ClientData[] }) => {
-        const client = data.clients.find((client) => client.ID === clientId);
+        const client = data.clients.find((client) => client.id === clientId);
         if (client) {
           setClientData(client);
         } else {
@@ -78,7 +79,7 @@ const EditClient = () => {
           <Grid item xs={6}>
             <TextField
               label="Client ID"
-              value={clientData.ID.toString()}
+              value={clientData.id.toString()}
               fullWidth
               disabled
             />
@@ -94,17 +95,17 @@ const EditClient = () => {
           <Grid item xs={6}>
             <TextField
               label="Id Number"
-              value={clientData['IdNumber']}
+              value={clientData['idNumber']}
               fullWidth
-              onChange={(e) => handleInputChange(e, 'IdNumber')}
+              onChange={(e) => handleInputChange(e, 'idNumber')}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               label="Gender"
-              value={clientData['Gender']}
+              value={clientData['gender']}
               fullWidth
-              onChange={(e) => handleInputChange(e, 'Gender')}
+              onChange={(e) => handleInputChange(e, 'gender')}
             />
           </Grid>
           <Grid item xs={6}>
