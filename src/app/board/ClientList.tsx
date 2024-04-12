@@ -10,21 +10,20 @@ import {
   TableHead,
   TableRow,
   Button,
-  Box,
   TablePagination,
 } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
-
-enum gender {
+enum Gender {
   Male = 'male',
   Female = 'female',
 }
+
 interface Client {
   id: number;
   name: string;
   idNumber: string;
-  gender: gender;
+  gender: Gender;
   birthday: string;
   phone: string;
   mobile: string;
@@ -42,27 +41,29 @@ const ClientList: React.FC<ClientListProps> = ({ currentData }) => {
   };
 
   const handleEditClient = (clientId: number) => {
-    router.push('/editTreatmentForm');
+    router.push(`/editTreatmentForm/${clientId}`);
   };
 
   const handleViewInfo = (clientId: number) => {
-    router.push('/viewTreatmentForm');
+    router.push(`/viewTreatmentForm/${clientId}`);
   };
 
   const handleDeleteClient = (clientId: number) => {
-    router.push('/deleteTreatmentForm');
+    router.push(`/deleteTreatmentForm/${clientId}`);
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const clientPerPage = 10;
-  const totalPages = Math.ceil(currentData.length / clientPerPage);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const indexOfLast = currentPage * clientPerPage;
-  const indexOfFirst = indexOfLast - clientPerPage;
-  const currentClients = currentData.slice(indexOfFirst, indexOfLast);
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset page when changing rowsPerPage
   };
 
   return (
@@ -82,34 +83,37 @@ const ClientList: React.FC<ClientListProps> = ({ currentData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {currentClients.map((client) => (
-              <TableRow key={client.id}>
-                <TableCell>{client.id}</TableCell>
-                <TableCell>{client.name}</TableCell>
-                <TableCell>{client.idNumber}</TableCell>
-                <TableCell>{client.gender}</TableCell>
-                <TableCell>{client.birthday}</TableCell>
-                <TableCell>{client.phone}</TableCell>
-                <TableCell>{client.mobile}</TableCell>
-                <TableCell>
-                  <Button onClick={handleAddClient}>Add</Button>
-                  <Button onClick={() => handleEditClient(client.id)}>Edit</Button>
-                  <Button onClick={() => handleViewInfo(client.id)}>View</Button>
-                  <Button onClick={() => handleDeleteClient(client.id)}>Delete</Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {currentData
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((client) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={client.id}>
+                  <TableCell>{client.id}</TableCell>
+                  <TableCell>{client.name}</TableCell>
+                  <TableCell>{client.idNumber}</TableCell>
+                  <TableCell>{client.gender}</TableCell>
+                  <TableCell>{client.birthday}</TableCell>
+                  <TableCell>{client.phone}</TableCell>
+                  <TableCell>{client.mobile}</TableCell>
+                  <TableCell>
+                    <Button onClick={handleAddClient}>Add</Button>
+                    <Button onClick={() => handleEditClient(client.id)}>Edit</Button>
+                    <Button onClick={() => handleViewInfo(client.id)}>View</Button>
+                    <Button onClick={() => handleDeleteClient(client.id)}>Delete</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
         component="div"
+        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPage={rowsPerPage}
         count={currentData.length}
-        rowsPerPage={clientPerPage}
-        page={currentPage - 1}
-        onPageChange={(_, page) => handlePageChange(page + 1)}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
   );

@@ -11,7 +11,7 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openAlert, setOpenAlert] = useState<boolean>(false);
-  const dataPerPage: number = 6; // display 6 data in each page
+  const dataPerPage: number = 50; // 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(10);
 
@@ -59,10 +59,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
     setOpenAlert(false);
   };
 
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
   const startIndex = (currentPage - 1) * dataPerPage;
   const endIndex = startIndex + dataPerPage;
   const currentData = searchResults.slice(startIndex, endIndex);
@@ -81,7 +77,6 @@ const Page: React.FC<{ jsonData: any }> = ({ jsonData }) => {
         currentData={currentData}
         currentPage={currentPage}
         totalPages={totalPages}
-        paginate={paginate}
         dataPerPage={dataPerPage} // Make sure to include dataPerPage here
       />
     </Navbar>

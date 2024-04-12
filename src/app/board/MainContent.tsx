@@ -32,9 +32,7 @@ const MainContent: React.FC<MainContentProps> = ({
   openAlert,
   handleCloseAlert,
   currentData,
-  currentPage,
-  totalPages,
-  dataPerPage,
+
   onPageChange, // Include onPageChange prop in the component
 }) => {
   const handlePageChange = (page: number) => {
