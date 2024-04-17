@@ -5,26 +5,21 @@ import { Container, Grid, TextField, Button } from '@mui/material/';
 type Client = {
   id: number;
   name: string;
-    idNumber: string;
-    gender: string;
-    phone: string;
-    mobile: string;
+  idNumber: string;
+  gender: string;
+  phone: string;
+  mobile: string;
 };
 
 interface ClientDetailsProps {
   params: { clientId: string };
-  clientDetails?: {
-    name: string;
-    idNumber: string;
-    gender: string;
-    phone: string;
-    mobile: string;
-  };
+  clientDetails?: Client;
 }
 
 const EditClient: React.FC<ClientDetailsProps> = ({ params, clientDetails }) => {
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [editedClient, setEditedClient] = useState<Client | undefined>(clientDetails);
 
   useEffect(() => {
     // Fetch the JSON file from the public directory
@@ -47,11 +42,17 @@ const EditClient: React.FC<ClientDetailsProps> = ({ params, clientDetails }) => 
     return <p>Client not found</p>;
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
-  }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof Client) => {
+    const updatedClient = { ...selectedClient, [field]: e.target.value };
+    const updatedClients = clients.map(client =>
+      client.id === selectedClient.id ? updatedClient : client
+    );
+    setClients(updatedClients);
+  };
 
   const handleSaveClick = () => {
     // Handle saving client data here
+    console.log("Client details saved:", editedClient);
   };
 
 
@@ -64,7 +65,7 @@ const EditClient: React.FC<ClientDetailsProps> = ({ params, clientDetails }) => 
         <Grid item xs={6}>
           <TextField
             label="Client ID"
-            value={params.clientId}
+            value={clientId}
             fullWidth
             disabled
           />
@@ -75,8 +76,9 @@ const EditClient: React.FC<ClientDetailsProps> = ({ params, clientDetails }) => 
             value={selectedClient.name}
             fullWidth
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e, 'name')}
+            />
             
-          />
+        
         </Grid>
         <Grid item xs={6}>
           <TextField
