@@ -1,88 +1,55 @@
-'use client';
+'use client'
+import { useEffect, useState } from 'react';
 
-import React, { useState, useEffect } from 'react';
-import { TextField, Container, Grid, Button } from '@mui/material';
-
-interface ClientData {
-  ID: number;
+type Client = {
+  id: number;
   name: string;
-  IdNumber: string;
-  Gender: string;
-  birthday: string;
-  phone: string;
-  mobile: string;
+  // other properties
+};
+
+interface ClientDetailsProps {
+  params: { clientId: string };
+  clientDetails?: {
+    name: string;
+    idNumber: string;
+    gender: string;
+    phone: string;
+    mobile: string;
+  };
 }
 
-const ViewClient = () => {
-  const [clientData, setClientData] = useState<ClientData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const ViewClient: React.FC<ClientDetailsProps> = ({ params, clientDetails }) => {
+  const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch('clients.json') 
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch');
-        }
-        return response.json();
-      })
-      .then((data: { clients: ClientData[] }) => {
-        setClientData(data.clients[0]); // Displaying only the first client data initially
+    // Fetch the JSON file from the public directory
+    fetch('/clients.json')
+      .then(response => response.json())
+      .then(data => {
+        setClients(data.clients);
         setLoading(false);
       })
-      .catch((error) => {
-        console.error('Error fetching client data:', error);
-        setError('Error fetching client data');
-        setLoading(false);
-      });
+      .catch(error => console.error('Failed to load clients', error));
   }, []);
 
-  const handleViewClick = (selectedClient: ClientData) => {
-    setClientData(selectedClient);
-  };
+  if (loading) return <p>Loading clients...</p>;
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const { clientId } = params;
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const selectedClient = clients.find(client => client.id.toString() === clientId);
 
-  if (!clientData) {
-    return <div>No client data available</div>;
+  if (!selectedClient) {
+    return <p>Client not found</p>;
   }
 
   return (
-    <Container>
-      <h1>View Client</h1>
-      <form>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField label="Client ID" value={clientData.id.toString()} fullWidth disabled />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField label="Name" value={clientData['name']} fullWidth disabled />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField label="Id Number" value={clientData['IdNumber']} fullWidth disabled />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField label="Gender" value={clientData['Gender']} fullWidth disabled />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField label="Phone" value={clientData['phone']} fullWidth disabled />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField label="Mobile" value={clientData['mobile']} fullWidth disabled />
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" onClick={() => handleViewClick(clientData)}>View</Button>
-          </Grid>
-        </Grid>
-      </form>
-    </Container>
+    <div>
+      <h1>Client Details</h1>
+      <p>Name: {selectedClient.name}</p>
+      {/* Render other client details here */}
+    </div>
   );
-}
+};
 
 export default ViewClient;
