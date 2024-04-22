@@ -98,7 +98,7 @@ const AddTreatmentRecord = () => {
   };
 
   const handleAddNewForm = () => {
-    router.push('/treatmentForm');
+    window.open('/treatmentForm', '_blank');
   };
 
   return (
