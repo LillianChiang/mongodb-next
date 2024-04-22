@@ -87,7 +87,7 @@ const AddTreatmentRecord = () => {
     event: React.SyntheticEvent | MouseEvent,
     reason: string,
   ) => {
-    if (reason === 'clickaway') {
+    if (reason === ' ') {
       return;
     }
     setOpenAlert(false);
