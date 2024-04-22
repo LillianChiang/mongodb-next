@@ -1,0 +1,52 @@
+[
+  {
+    "product": "Massage Therapy Session",
+    "therapist": "John Smith",
+    "price": 60
+  },
+  {
+    "product": "Acupuncture Treatment",
+    "therapist": "Jane Doe",
+    "price": 80
+  },
+  {
+    "product": "Yoga Class",
+    "therapist": "Emily Johnson",
+    "price": 20
+  },
+  {
+    "product": "Physical Therapy Session",
+    "therapist": "Michael Brown",
+    "price": 75
+  },
+  {
+    "product": "Chiropractic Adjustment",
+    "therapist": "Sarah Lee",
+    "price": 70
+  },
+  {
+    "product": "Meditation Session",
+    "therapist": "David Wilson",
+    "price": 30
+  },
+  {
+    "product": "Nutritional Counseling Session",
+    "therapist": "Alexandra Martinez",
+    "price": 50
+  },
+  {
+    "product": "Reiki Healing Session",
+    "therapist": "Olivia Garcia",
+    "price": 65
+  },
+  {
+    "product": "Tai Chi Class",
+    "therapist": "Daniel Kim",
+    "price": 25
+  },
+  {
+    "product": "Hypnotherapy Session",
+    "therapist": "Sophia Nguyen",
+    "price": 90
+  }
+]
