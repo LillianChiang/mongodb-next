@@ -1,3 +1,4 @@
+
 'use client'
 import { useEffect, useState } from 'react';
 
@@ -51,5 +52,6 @@ const ViewClient: React.FC<ClientDetailsProps> = ({ params, clientDetails }) => 
     </div>
   );
 };
+
 
 export default ViewClient;
