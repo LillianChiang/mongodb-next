@@ -290,3 +290,4 @@ const AddTreatmentRecord = () => {
 };
 
 export default AddTreatmentRecord;
+
