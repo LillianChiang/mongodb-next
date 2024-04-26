@@ -96,8 +96,8 @@ const ClientList: React.FC<ClientListProps> = ({ currentData }) => {
                   <TableCell>{client.mobile}</TableCell>
                   <TableCell>
                     <Button onClick={handleAddClient}>Add</Button>
-                    <Button onClick={() => handleEditClient(client.id)}>Edit</Button>
-                    <Button onClick={() => handleViewInfo(client.id)}>View</Button>
+                    <Button onClick={() => handleEditClient(client.id)}>修改病歷</Button>
+                    <Button onClick={() => handleViewInfo(client.id)}>修改個案資料</Button>
                     <Button onClick={() => handleDeleteClient(client.id)}>Delete</Button>
                   </TableCell>
                 </TableRow>

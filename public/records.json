@@ -1,0 +1,204 @@
+{
+  "records": [
+    {
+      "id": 1,
+      "therapist": "James Taylor",
+      "treatment_type": "Massage Therapy",
+      "assessment_content": "Back Pain Assessment",
+      "treatment_content": "Deep Tissue Massage",
+      "cash_fees": 50,
+      "prepaid": false,
+      "remarks": "Client prefers evening appointments."
+    },
+    {
+      "id": 2,
+      "therapist": "Liam Smith",
+      "treatment_type": "Physical Therapy",
+      "assessment_content": "Joint Mobility Assessment",
+      "treatment_content": "Exercise Therapy",
+      "cash_fees": 70,
+      "prepaid": true,
+      "remarks": "Client has a history of knee injuries."
+    },
+    {
+      "id": 3,
+      "therapist": "Michael Johnson",
+      "treatment_type": "Acupuncture",
+      "assessment_content": "Meridian Assessment",
+      "treatment_content": "Needle Therapy",
+      "cash_fees": 80,
+      "prepaid": false,
+      "remarks": "Client is allergic to certain metals."
+    },
+    {
+      "id": 4,
+      "therapist": "Emily Wilson",
+      "treatment_type": "Chiropractic Care",
+      "assessment_content": "Spinal Alignment Assessment",
+      "treatment_content": "Spinal Adjustment",
+      "cash_fees": 90,
+      "prepaid": true,
+      "remarks": "Client works a desk job."
+    },
+    {
+      "id": 5,
+      "therapist": "David Brown",
+      "treatment_type": "Sports Massage",
+      "assessment_content": "Muscle Flexibility Assessment",
+      "treatment_content": "Sports Injury Massage",
+      "cash_fees": 60,
+      "prepaid": false,
+      "remarks": "Client is a marathon runner."
+    },
+    {
+      "id": 6,
+      "therapist": "Sarah Lee",
+      "treatment_type": "Occupational Therapy",
+      "assessment_content": "Functional Capacity Assessment",
+      "treatment_content": "Activity Modification",
+      "cash_fees": 75,
+      "prepaid": true,
+      "remarks": "Client recently had surgery."
+    },
+    {
+      "id": 7,
+      "therapist": "Daniel Clark",
+      "treatment_type": "Cognitive Behavioral Therapy",
+      "assessment_content": "Cognitive Assessment",
+      "treatment_content": "Behavioral Modification",
+      "cash_fees": 85,
+      "prepaid": false,
+      "remarks": "Client has anxiety disorder."
+    },
+    {
+      "id": 8,
+      "therapist": "Emma White",
+      "treatment_type": "Speech Therapy",
+      "assessment_content": "Speech Evaluation",
+      "treatment_content": "Articulation Therapy",
+      "cash_fees": 65,
+      "prepaid": true,
+      "remarks": "Client had a recent stroke."
+    },
+    {
+      "id": 9,
+      "therapist": "James Taylor",
+      "treatment_type": "Rehabilitation Counseling",
+      "assessment_content": "Life Skills Assessment",
+      "treatment_content": "Goal Setting Therapy",
+      "cash_fees": 55,
+      "prepaid": false,
+      "remarks": "Client is transitioning careers."
+    },
+    {
+      "id": 10,
+      "therapist": "Olivia Harris",
+      "treatment_type": "Nutritional Counseling",
+      "assessment_content": "Dietary Assessment",
+      "treatment_content": "Meal Planning",
+      "cash_fees": 70,
+      "prepaid": true,
+      "remarks": "Client is lactose intolerant."
+    },
+    {
+      "id": 11,
+      "therapist": "William Martinez",
+      "treatment_type": "Psychotherapy",
+      "assessment_content": "Mental Health Assessment",
+      "treatment_content": "Cognitive Behavioral Therapy",
+      "cash_fees": 80,
+      "prepaid": false,
+      "remarks": "Client experienced trauma."
+    },
+    {
+      "id": 12,
+      "therapist": "Sophia Rodriguez",
+      "treatment_type": "Music Therapy",
+      "assessment_content": "Emotional Expression Assessment",
+      "treatment_content": "Music Relaxation Therapy",
+      "cash_fees": 75,
+      "prepaid": true,
+      "remarks": "Client has trouble sleeping."
+    },
+    {
+      "id": 13,
+      "therapist": "Noah King",
+      "treatment_type": "Aromatherapy",
+      "assessment_content": "Scent Sensitivity Assessment",
+      "treatment_content": "Essential Oil Therapy",
+      "cash_fees": 55,
+      "prepaid": false,
+      "remarks": "Client prefers lavender scent."
+    },
+    {
+      "id": 14,
+      "therapist": "Ava Carter",
+      "treatment_type": "Art Therapy",
+      "assessment_content": "Creative Expression Assessment",
+      "treatment_content": "Artistic Exploration Therapy",
+      "cash_fees": 65,
+      "prepaid": true,
+      "remarks": "Client is recovering from trauma."
+    },
+    {
+      "id": 15,
+      "therapist": "Ethan Wood",
+      "treatment_type": "Yoga Therapy",
+      "assessment_content": "Flexibility Assessment",
+      "treatment_content": "Yoga Poses Therapy",
+      "cash_fees": 60,
+      "prepaid": false,
+      "remarks": "Client has chronic back pain."
+    },
+    {
+      "id": 16,
+      "therapist": "Madison Foster",
+      "treatment_type": "Animal-Assisted Therapy",
+      "assessment_content": "Animal Interaction Assessment",
+      "treatment_content": "Pet Therapy",
+      "cash_fees": 80,
+      "prepaid": true,
+      "remarks": "Client is an animal lover."
+    },
+    {
+      "id": 17,
+      "therapist": "Logan Cooper",
+      "treatment_type": "Horticultural Therapy",
+      "assessment_content": "Plant Interaction Assessment",
+      "treatment_content": "Gardening Therapy",
+      "cash_fees": 70,
+      "prepaid": false,
+      "remarks": "Client enjoys outdoor activities."
+    },
+    {
+      "id": 18,
+      "therapist": "Chloe Bailey",
+      "treatment_type": "Dance/Movement Therapy",
+      "assessment_content": "Movement Assessment",
+      "treatment_content": "Dance Movement Therapy",
+      "cash_fees": 75,
+      "prepaid": true,
+      "remarks": "Client wants to improve mood."
+    },
+    {
+      "id": 19,
+      "therapist": "Luke Howard",
+      "treatment_type": "Biofeedback Therapy",
+      "assessment_content": "Physiological Feedback Assessment",
+      "treatment_content": "Biofeedback Training",
+      "cash_fees": 85,
+      "prepaid": false,
+      "remarks": "Client experiences anxiety attacks"
+    },
+    {
+      "id": 20,
+      "therapist": "Isabella Long",
+      "treatment_type": "Equine-Assisted Therapy",
+      "assessment_content": "Horse Interaction Assessment",
+      "treatment_content": "Horse Riding Therapy",
+      "cash_fees": 90,
+      "prepaid": true,
+      "remarks": "Client loves horses."
+    }
+  ]
+}

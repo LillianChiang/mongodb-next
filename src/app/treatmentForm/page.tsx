@@ -6,7 +6,6 @@ import { makeStyles } from '@mui/styles';
 import AddProducts from './AddProducts';
 import Title from '../components/Title';
 
-
 import {
   Button,
   TextField,
@@ -119,6 +118,7 @@ const AddTreatmentRecord = () => {
                   value={date}
                   onChange={handleDateChange}
                 />
+               
               </Grid>
               <Grid item xs={8}>
                 <Button type="submit" variant="contained" color="primary">
@@ -128,7 +128,6 @@ const AddTreatmentRecord = () => {
                   variant="contained"
                   color="default"
                   onClick={handleCancel}
-                
                 >
                   刪除
                 </Button>
@@ -136,7 +135,7 @@ const AddTreatmentRecord = () => {
                   variant="contained"
                   color="primary"
                   onClick={handleAddNewForm}
-                  style={{ marginLeft: '500px' }} 
+                  style={{ marginLeft: '500px' }}
                 >
                   新增
                 </Button>
@@ -198,6 +197,8 @@ const AddTreatmentRecord = () => {
               fullWidth
               id="content"
               label="評估內容"
+              multiline
+              rows="3"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               className={classes.marginBottom}
@@ -206,17 +207,24 @@ const AddTreatmentRecord = () => {
               fullWidth
               id="treatmentContent"
               label="治療內容"
+              multiline
+              rows="4"
               value={treatmentContent}
               onChange={(e) => setTreatmentContent(e.target.value)}
               className={classes.marginBottom}
+             
             />
             <Grid container spacing={2}>
               <Grid item xs={3}>
                 <TextField
                   id="treatmentFee"
                   label="治療費用 (現金)"
-                  value={treatmentFee}
-                  onChange={(e) => setTreatmentFee(e.target.value)}
+                  value={`$${treatmentFee}`} // Prepend $ to the displayed value
+                  onChange={(e) => {
+                    // Update treatmentFee by removing non-numeric characters (like the $ sign)
+                    const value = e.target.value.replace(/^\$/, '');
+                    setTreatmentFee(value);
+                  }}
                   className={classes.marginBottom}
                 />
               </Grid>
@@ -237,17 +245,26 @@ const AddTreatmentRecord = () => {
                 <TextField
                   id="chargeFee"
                   label="治療費用 (預收實現)"
-                  value={chargeFee}
-                  onChange={(e) => setChargeFee(e.target.value)}
+                  value={`$${chargeFee}`} 
+                  onChange={(e) => {
+                    // Update treatmentFee by removing non-numeric characters (like the $ sign)
+                    const value = e.target.value.replace(/^\$/, '');
+                    setTreatmentFee(value);
+                  }}
                   className={classes.marginBottom}
                 />
+              
               </Grid>
               <Grid item xs={3}>
                 <TextField
                   id="currentTreatmentContent"
                   label="預收款項"
-                  value={currentTreatmentContent}
-                  onChange={(e) => setCurrentTreatmentContent(e.target.value)}
+                  value={`$${currentTreatmentContent}`}
+                  onChange={(e) => {
+                    // Update treatmentFee by removing non-numeric characters (like the $ sign)
+                    const value = e.target.value.replace(/^\$/, '');
+                    setTreatmentFee(value);
+                  }}
                   className={classes.marginBottom}
                 />
               </Grid>
@@ -257,7 +274,7 @@ const AddTreatmentRecord = () => {
               id="chargeNotes"
               label="預收實現備註"
               multiline
-              rows={4}
+              rows="6"
               value={chargeNotes}
               onChange={(e) => setChargeNotes(e.target.value)}
               className={classes.marginBottom}
@@ -290,4 +307,3 @@ const AddTreatmentRecord = () => {
 };
 
 export default AddTreatmentRecord;
-
