@@ -12,6 +12,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 interface Entry {
   date: string;
@@ -38,7 +39,12 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [selectedRecord, setSelectedRecord] = useState<Record | undefined>();
   const [editedRecord, setEditedRecord] = useState<Partial<Entry>>({});
-  const [recordIndex, setRecordIndex] = useState<number | null>(null);
+  const [expandedRecordIndex, setExpandedRecordIndex] = useState<number | null>(
+    null,
+  );
+  const [expandedRecordIndices, setExpandedRecordIndices] = useState<number[]>(
+    [],
+  );
 
   useEffect(() => {
     fetch('/records.json')
@@ -60,17 +66,29 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
 
   const handleInputChange = (
     field: keyof Entry,
-    value: string | number | boolean
+    value: string | number | boolean,
   ) => {
     setEditedRecord((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleTableClick = (index: number) => {
-    setRecordIndex(index);
+    setExpandedRecordIndices((prevIndices) => {
+      if (prevIndices.includes(index)) {
+        // If the clicked record is already expanded, collapse it
+        return prevIndices.filter((idx) => idx !== index);
+      } else {
+        // Expand the clicked record
+        return [...prevIndices, index];
+      }
+    });
   };
 
   const handleSaveClick = () => {
     console.log('Record details saved:', editedRecord);
+  };
+
+  const handleCancelClick = () => {
+    setEditedRecord(selectedRecord?.entries[expandedRecordIndex ?? 0] ?? {});
   };
 
   if (loading) return <Typography>Loading records...</Typography>;
@@ -81,113 +99,171 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
       <Typography variant="h4" style={{ marginTop: 10, marginBottom: 10 }}>
         Record Details
       </Typography>
-
+      
       {selectedRecord.entries.map((entry: Entry, index: number) => (
-        <Paper key={index} elevation={3} style={{ marginBottom: 10, padding: 2 }}>
-          <Typography variant="h6">Record {index + 1}</Typography>
+        <Paper
+          key={index}
+          elevation={3}
+          style={{ marginBottom: 10, padding: 2 }}
+        >
           <Table>
             <TableBody>
-            <TableRow key={selectedRecord.id} onClick={() => handleTableClick(index)}>
+              <TableRow
+                key={selectedRecord.id}
+                onClick={() => handleTableClick(index)}
+              >
                 <TableCell component="th" scope="row">
-                  Date: {entry.date}
+                  {entry.date}
                 </TableCell>
-                <TableCell>Therapist: {entry.therapist}</TableCell>
+                <TableCell align="center">{entry.therapist}</TableCell>
+                <TableCell align="right">{entry.treatment_type}</TableCell>
+                <TableCell>
+                  <div onClick={() => handleTableClick(index)}>
+                    <KeyboardArrowDownIcon />
+                  </div>
+                </TableCell>
               </TableRow>
+              {expandedRecordIndices.includes(index) && (
+                <TableRow key={`expanded-row-${index}`}>
+                  <TableCell colSpan={4}>
+                    <form>
+                      <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                          <TextField
+                            label="Record ID"
+                            value={selectedRecord.id}
+                            fullWidth
+                            disabled
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            label="date"
+                            value={records[index].entries[index].date}
+                            fullWidth
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>,
+                            ) => handleInputChange('date', e.target.value)}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            label="therapist"
+                            value={records[index].entries[index].therapist}
+                            fullWidth
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>,
+                            ) => handleInputChange('therapist', e.target.value)}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            label="treatment_type"
+                            value={records[index].entries[index].treatment_type}
+                            fullWidth
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>,
+                            ) =>
+                              handleInputChange(
+                                'treatment_type',
+                                e.target.value,
+                              )
+                            }
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            label="assessment_content"
+                            value={
+                              records[index].entries[index].assessment_content
+                            }
+                            fullWidth
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>,
+                            ) =>
+                              handleInputChange(
+                                'assessment_content',
+                                e.target.value,
+                              )
+                            }
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            label="treatment_content"
+                            value={
+                              records[index].entries[index].treatment_content
+                            }
+                            fullWidth
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>,
+                            ) =>
+                              handleInputChange(
+                                'treatment_content',
+                                e.target.value,
+                              )
+                            }
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            label="cash_fees"
+                            value={records[index].entries[index].cash_fees}
+                            fullWidth
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>,
+                            ) => handleInputChange('cash_fees', e.target.value)}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            label="prepaid"
+                            value={
+                              records[index].entries[index].prepaid
+                                ? 'Yes'
+                                : 'No'
+                            }
+                            fullWidth
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>,
+                            ) => handleInputChange('prepaid', e.target.value)}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            label="remarks"
+                            value={records[index].entries[index].remarks}
+                            fullWidth
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>,
+                            ) => handleInputChange('remarks', e.target.value)}
+                          />
+                        </Grid>
+                        <Grid item xs={12} container justifyContent="center">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleSaveClick}
+                          >
+                            SAVE
+                          </Button>
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleCancelClick}
+                          >
+                            CANCEL
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </form>
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </Paper>
       ))}
-{recordIndex !== null && records && (
-      <form>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField
-              label="Record ID"
-              value={selectedRecord.id}
-              fullWidth
-              disabled
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="date"
-              value={records[recordIndex].entries[recordIndex].date}
-              fullWidth
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputChange('date', e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={6}>
-                <TextField
-                  label="therapist"
-                  value={records[recordIndex].entries[recordIndex].therapist}
-                  fullWidth
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange('therapist', e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="treatment_type"
-                  value={records[recordIndex].entries[recordIndex].treatment_type}
-                  fullWidth
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange('treatment_type', e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="assessment_content"
-                  value={records[recordIndex].entries[recordIndex].assessment_content}
-                  fullWidth
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange('assessment_content', e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="treatment_content"
-                  value={records[recordIndex].entries[recordIndex].treatment_content}
-                  fullWidth
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange('treatment_content', e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="cash_fees"
-                  value={records[recordIndex].entries[recordIndex].cash_fees}
-                  fullWidth
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange('cash_fees', e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="prepaid"
-                  value={records[recordIndex].entries[recordIndex].prepaid ? 'Yes' : 'No'}
-                  fullWidth
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange('prepaid', e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label="remarks"
-                  value={records[recordIndex].entries[recordIndex].remarks}
-                  fullWidth
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange('remarks', e.target.value)}
-                />
-              </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" onClick={handleSaveClick}>
-              SAVE
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-      )}
     </Container>
   );
 };
