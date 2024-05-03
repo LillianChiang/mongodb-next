@@ -11,8 +11,12 @@ import {
   TableRow,
   TextField,
   Typography,
+  Snackbar,
+  FormControl,
+  InputLabel,
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AddProducts from '../../treatmentForm/AddProducts';
 
 interface Entry {
   date: string;
@@ -39,6 +43,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [selectedRecord, setSelectedRecord] = useState<Record | undefined>();
   const [editedRecord, setEditedRecord] = useState<Partial<Entry>>({});
+  const [openAlert, setOpenAlert] = useState(false);
   const [expandedRecordIndex, setExpandedRecordIndex] = useState<number | null>(
     null,
   );
@@ -91,6 +96,22 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
     setEditedRecord(selectedRecord?.entries[expandedRecordIndex ?? 0] ?? {});
   };
 
+  const handleAddNewForm = () => {
+    window.open('/treatmentForm', '_blank');
+  };
+  const resetDelete = () => {
+    setOpenAlert(false); // Close the alert after resetting search
+  };
+
+  const handleCloseAlert = (
+    event: React.SyntheticEvent | MouseEvent,
+    reason: string,
+  ) => {
+    if (reason === ' ') {
+      return;
+    }
+    setOpenAlert(false);
+  };
   if (loading) return <Typography>Loading records...</Typography>;
   if (!selectedRecord) return <Typography>Record not found</Typography>;
 
@@ -99,7 +120,6 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
       <Typography variant="h4" style={{ marginTop: 10, marginBottom: 10 }}>
         Record Details
       </Typography>
-      
       {selectedRecord.entries.map((entry: Entry, index: number) => (
         <Paper
           key={index}
@@ -136,132 +156,195 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                             disabled
                           />
                         </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="date"
-                            value={records[index].entries[index].date}
-                            fullWidth
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>,
-                            ) => handleInputChange('date', e.target.value)}
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="therapist"
-                            value={records[index].entries[index].therapist}
-                            fullWidth
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>,
-                            ) => handleInputChange('therapist', e.target.value)}
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="treatment_type"
-                            value={records[index].entries[index].treatment_type}
-                            fullWidth
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>,
-                            ) =>
-                              handleInputChange(
-                                'treatment_type',
-                                e.target.value,
-                              )
+                        <Grid container spacing={5}>
+                          <Grid item xs={2}>
+                            <TextField
+                              label="date"
+                              value={records[index].entries[index].date}
+                              fullWidth
+                              onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>,
+                              ) => handleInputChange('date', e.target.value)}
+                            />
+                          </Grid>
+                          <Grid item xs={8}>
+                            <Button
+                              type="submit"
+                              variant="contained"
+                              color="primary"
+                            >
+                              收據: 0
+                            </Button>
+                            <Button
+                              variant="contained"
+                              color="default"
+                              onClick={handleCancelClick}
+                            >
+                              刪除
+                            </Button>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={handleAddNewForm}
+                              style={{ marginLeft: '500px' }}
+                            >
+                              新增
+                            </Button>
+                          </Grid>
+                          <Snackbar
+                            open={openAlert}
+                            autoHideDuration={5000}
+                            onClose={handleCloseAlert}
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'center',
+                            }}
+                            message="確定刪除嗎？"
+                            action={
+                              <>
+                                <Button color="secondary" size="small">
+                                  是
+                                </Button>
+                                <Button
+                                  color="secondary"
+                                  size="small"
+                                  onClick={resetDelete}
+                                >
+                                  否
+                                </Button>
+                              </>
                             }
                           />
                         </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="assessment_content"
-                            value={
-                              records[index].entries[index].assessment_content
-                            }
-                            fullWidth
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>,
-                            ) =>
-                              handleInputChange(
-                                'assessment_content',
-                                e.target.value,
-                              )
-                            }
-                          />
+                        <Grid container spacing={2}>
+                          <Grid item xs={4}>
+                            <FormControl fullWidth>
+                              <TextField
+                                label="治療師"
+                                value={records[index].entries[index].therapist}
+                                fullWidth
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>,
+                                ) =>
+                                  handleInputChange('therapist', e.target.value)
+                                }
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <FormControl fullWidth>
+                              <TextField
+                                label="治療項目"
+                                value={
+                                  records[index].entries[index].treatment_type
+                                }
+                                fullWidth
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>,
+                                ) =>
+                                  handleInputChange(
+                                    'treatment_type',
+                                    e.target.value,
+                                  )
+                                }
+                              />
+                            </FormControl>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="treatment_content"
-                            value={
-                              records[index].entries[index].treatment_content
-                            }
-                            fullWidth
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>,
-                            ) =>
-                              handleInputChange(
-                                'treatment_content',
-                                e.target.value,
-                              )
-                            }
-                          />
+                        <TextField
+                          label="assessment_content"
+                          value={
+                            records[index].entries[index].assessment_content
+                          }
+                          fullWidth
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            handleInputChange(
+                              'assessment_content',
+                              e.target.value,
+                            )
+                          }
+                        />
+                        <TextField
+                          label="treatment_content"
+                          value={
+                            records[index].entries[index].treatment_content
+                          }
+                          fullWidth
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            handleInputChange(
+                              'treatment_content',
+                              e.target.value,
+                            )
+                          }
+                        />
+                        <Grid container spacing={2}>
+                          <Grid item xs={3}>
+                            <TextField
+                              label="cash_fees"
+                              value={records[index].entries[index].cash_fees}
+                              fullWidth
+                              onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>,
+                              ) =>
+                                handleInputChange('cash_fees', e.target.value)
+                              }
+                            />
+                          </Grid>
+                          <Grid item xs={3}>
+                            <TextField
+                              label="prepaid"
+                              value={
+                                records[index].entries[index].prepaid
+                                  ? 'Yes'
+                                  : 'No'
+                              }
+                              fullWidth
+                              onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>,
+                              ) => handleInputChange('prepaid', e.target.value)}
+                            />
+                          </Grid>
                         </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="cash_fees"
-                            value={records[index].entries[index].cash_fees}
-                            fullWidth
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>,
-                            ) => handleInputChange('cash_fees', e.target.value)}
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="prepaid"
-                            value={
-                              records[index].entries[index].prepaid
-                                ? 'Yes'
-                                : 'No'
-                            }
-                            fullWidth
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>,
-                            ) => handleInputChange('prepaid', e.target.value)}
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="remarks"
-                            value={records[index].entries[index].remarks}
-                            fullWidth
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>,
-                            ) => handleInputChange('remarks', e.target.value)}
-                          />
-                        </Grid>
-                        <Grid item xs={12} container justifyContent="center">
+                        <TextField
+                          label="remarks"
+                          value={records[index].entries[index].remarks}
+                          fullWidth
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            handleInputChange('remarks', e.target.value)
+                          }
+                        />
+                        <Grid
+                          item
+                          container
+                          direction="row"
+                          justifyContent="center"
+                          alignItems="center"
+                          xs={12}
+                        >
                           <Button
+                            type="submit"
                             variant="contained"
                             color="primary"
-                            onClick={handleSaveClick}
                           >
-                            SAVE
+                            儲存
                           </Button>
                           <Button
                             variant="contained"
-                            color="secondary"
+                            color="default"
                             onClick={handleCancelClick}
                           >
-                            CANCEL
+                            取消
                           </Button>
                         </Grid>
                       </Grid>
+                      <AddProducts />
                     </form>
                   </TableCell>
                 </TableRow>
               )}
             </TableBody>
           </Table>
+         
         </Paper>
       ))}
     </Container>
