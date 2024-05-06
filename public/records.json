@@ -22,6 +22,56 @@
           "cash_fees": 70,
           "prepaid": true,
           "remarks": "Client has a history of knee injuries."
+        },
+        {
+          "date": "2024-05-01",
+          "therapist": "Emily Johnson",
+          "treatment_type": "Acupuncture",
+          "assessment_content": "Energy Assessment",
+          "treatment_content": "Traditional Chinese Medicine Acupuncture",
+          "cash_fees": 60,
+          "prepaid": false,
+          "remarks": "Client is seeking relief from stress and insomnia."
+        },
+        {
+          "date": "2024-05-02",
+          "therapist": "Sarah Martinez",
+          "treatment_type": "Chiropractic Care",
+          "assessment_content": "Spinal Alignment Assessment",
+          "treatment_content": "Spinal Adjustment",
+          "cash_fees": 80,
+          "prepaid": true,
+          "remarks": "Client reports occasional lower back stiffness."
+        },
+        {
+          "date": "2024-05-03",
+          "therapist": "David Lee",
+          "treatment_type": "Occupational Therapy",
+          "assessment_content": "Fine Motor Skills Assessment",
+          "treatment_content": "Hand Strengthening Exercises",
+          "cash_fees": 65,
+          "prepaid": false,
+          "remarks": "Client is recovering from a wrist injury."
+        },
+        {
+          "date": "2024-05-04",
+          "therapist": "Jessica Brown",
+          "treatment_type": "Speech Therapy",
+          "assessment_content": "Articulation Assessment",
+          "treatment_content": "Pronunciation Exercises",
+          "cash_fees": 55,
+          "prepaid": true,
+          "remarks": "Client is working on improving clarity of speech."
+        },
+        {
+          "date": "2024-05-05",
+          "therapist": "Michael Wilson",
+          "treatment_type": "Mental Health Counseling",
+          "assessment_content": "Anxiety Assessment",
+          "treatment_content": "Cognitive Behavioral Therapy",
+          "cash_fees": 90,
+          "prepaid": false,
+          "remarks": "Client is experiencing work-related stress and panic attacks."
         }
       ]
     },

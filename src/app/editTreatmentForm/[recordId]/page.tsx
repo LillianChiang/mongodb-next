@@ -16,23 +16,9 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Entry, Record } from './RecordTypes';
+import { fetchRecords } from './RecordUtils';
 import AddProducts from '../../treatmentForm/AddProducts';
-
-interface Entry {
-  date: string;
-  therapist: string;
-  treatment_type: string;
-  assessment_content: string;
-  treatment_content: string;
-  cash_fees: number;
-  prepaid: boolean;
-  remarks: string;
-}
-
-interface Record {
-  id: number;
-  entries: Entry[];
-}
 
 interface RecordDetailsProps {
   params: { recordId: string };
@@ -44,30 +30,25 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
   const [selectedRecord, setSelectedRecord] = useState<Record | undefined>();
   const [editedRecord, setEditedRecord] = useState<Partial<Entry>>({});
   const [openAlert, setOpenAlert] = useState(false);
-  const [expandedRecordIndex, setExpandedRecordIndex] = useState<number | null>(
-    null,
-  );
-  const [expandedRecordIndices, setExpandedRecordIndices] = useState<number[]>(
-    [],
-  );
+  const [expandedRecordIndex, setExpandedRecordIndex] = useState<number | null>(null);
+  const [expandedRecordIndices, setExpandedRecordIndices] = useState<number[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState(3);
 
   useEffect(() => {
-    fetch('/records.json')
-      .then((response) => response.json())
+    fetchRecords(params.recordId)
       .then((data) => {
-        setRecords(data.records);
-        const foundRecord = data.records.find(
-          (rec: Record) => rec.id.toString() === params.recordId,
-        );
+        setRecords(data);
+        const foundRecord = data[0];
         setSelectedRecord(foundRecord);
         setEditedRecord(foundRecord ? foundRecord.entries[0] : {});
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Failed to load records', error);
-        setLoading(false);
       });
   }, [params.recordId]);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   const handleInputChange = (
     field: keyof Entry,
@@ -115,13 +96,20 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
   if (loading) return <Typography>Loading records...</Typography>;
   if (!selectedRecord) return <Typography>Record not found</Typography>;
 
+
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const currentEntries = selectedRecord?.entries.slice(indexOfFirstEntry, indexOfLastEntry) || [];
+  
+
+
   return (
     <Container>
       <Typography variant="h4" style={{ marginTop: 10, marginBottom: 10 }}>
         Record Details
       </Typography>
-      {selectedRecord.entries.map((entry: Entry, index: number) => (
-        <Paper
+      {currentEntries.map((entry: Entry, index: number) => (
+          <Paper
           key={index}
           elevation={3}
           style={{ marginBottom: 10, padding: 2 }}
@@ -160,7 +148,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                           <Grid item xs={2}>
                             <TextField
                               label="date"
-                              value={records[index].entries[index].date}
+                              value={entry.date}
                               fullWidth
                               onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
@@ -221,7 +209,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                             <FormControl fullWidth>
                               <TextField
                                 label="治療師"
-                                value={records[index].entries[index].therapist}
+                                value={entry.therapist}
                                 fullWidth
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>,
@@ -235,9 +223,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                             <FormControl fullWidth>
                               <TextField
                                 label="治療項目"
-                                value={
-                                  records[index].entries[index].treatment_type
-                                }
+                                value={entry.treatment_type}
                                 fullWidth
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>,
@@ -253,9 +239,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                         </Grid>
                         <TextField
                           label="assessment_content"
-                          value={
-                            records[index].entries[index].assessment_content
-                          }
+                          value={entry.assessment_content}
                           fullWidth
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             handleInputChange(
@@ -266,9 +250,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                         />
                         <TextField
                           label="treatment_content"
-                          value={
-                            records[index].entries[index].treatment_content
-                          }
+                          value={entry.treatment_content}
                           fullWidth
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             handleInputChange(
@@ -281,7 +263,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                           <Grid item xs={3}>
                             <TextField
                               label="cash_fees"
-                              value={records[index].entries[index].cash_fees}
+                              value={entry.cash_fees}
                               fullWidth
                               onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
@@ -294,7 +276,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                             <TextField
                               label="prepaid"
                               value={
-                                records[index].entries[index].prepaid
+                                entry.prepaid
                                   ? 'Yes'
                                   : 'No'
                               }
@@ -307,7 +289,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                         </Grid>
                         <TextField
                           label="remarks"
-                          value={records[index].entries[index].remarks}
+                          value={entry.remarks}
                           fullWidth
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             handleInputChange('remarks', e.target.value)
@@ -347,6 +329,20 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
          
         </Paper>
       ))}
+      <Grid container justifyContent="center">
+        <Button
+          disabled={currentPage === 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          Previous Page
+        </Button>
+        <Button
+          disabled={currentEntries.length < entriesPerPage}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          Next Page
+        </Button>
+      </Grid>
     </Container>
   );
 };
