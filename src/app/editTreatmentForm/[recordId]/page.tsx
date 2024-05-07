@@ -13,7 +13,7 @@ import {
   Typography,
   Snackbar,
   FormControl,
-  InputLabel,
+ 
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Entry, Record } from './RecordTypes';
@@ -334,13 +334,13 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
           disabled={currentPage === 1}
           onClick={() => handlePageChange(currentPage - 1)}
         >
-          Previous Page
+          &lt;
         </Button>
         <Button
           disabled={currentEntries.length < entriesPerPage}
           onClick={() => handlePageChange(currentPage + 1)}
         >
-          Next Page
+          &gt;
         </Button>
       </Grid>
     </Container>
