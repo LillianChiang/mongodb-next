@@ -13,7 +13,6 @@ import {
   Typography,
   Snackbar,
   FormControl,
- 
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Entry, Record } from './RecordTypes';
@@ -30,20 +29,23 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
   const [selectedRecord, setSelectedRecord] = useState<Record | undefined>();
   const [editedRecord, setEditedRecord] = useState<Partial<Entry>>({});
   const [openAlert, setOpenAlert] = useState(false);
-  const [expandedRecordIndex, setExpandedRecordIndex] = useState<number | null>(null);
-  const [expandedRecordIndices, setExpandedRecordIndices] = useState<number[]>([]);
+  const [expandedRecordIndex, setExpandedRecordIndex] = useState<number | null>(
+    null,
+  );
+  const [expandedRecordIndices, setExpandedRecordIndices] = useState<number[]>(
+    [],
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(3);
 
   useEffect(() => {
-    fetchRecords(params.recordId)
-      .then((data) => {
-        setRecords(data);
-        const foundRecord = data[0];
-        setSelectedRecord(foundRecord);
-        setEditedRecord(foundRecord ? foundRecord.entries[0] : {});
-        setLoading(false);
-      });
+    fetchRecords(params.recordId).then((data) => {
+      setRecords(data);
+      const foundRecord = data[0];
+      setSelectedRecord(foundRecord);
+      setEditedRecord(foundRecord ? foundRecord.entries[0] : {});
+      setLoading(false);
+    });
   }, [params.recordId]);
 
   const handlePageChange = (pageNumber: number) => {
@@ -96,12 +98,10 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
   if (loading) return <Typography>Loading records...</Typography>;
   if (!selectedRecord) return <Typography>Record not found</Typography>;
 
-
   const indexOfLastEntry = currentPage * entriesPerPage;
   const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-  const currentEntries = selectedRecord?.entries.slice(indexOfFirstEntry, indexOfLastEntry) || [];
-  
-
+  const currentEntries =
+    selectedRecord?.entries.slice(indexOfFirstEntry, indexOfLastEntry) || [];
 
   return (
     <Container>
@@ -109,7 +109,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
         Record Details
       </Typography>
       {currentEntries.map((entry: Entry, index: number) => (
-          <Paper
+        <Paper
           key={index}
           elevation={3}
           style={{ marginBottom: 10, padding: 2 }}
@@ -148,7 +148,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                           <Grid item xs={2}>
                             <TextField
                               label="date"
-                              value={entry.date}
+                              value={editedRecord.date}
                               fullWidth
                               onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
@@ -209,7 +209,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                             <FormControl fullWidth>
                               <TextField
                                 label="治療師"
-                                value={entry.therapist}
+                                value={editedRecord.therapist}
                                 fullWidth
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>,
@@ -223,7 +223,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                             <FormControl fullWidth>
                               <TextField
                                 label="治療項目"
-                                value={entry.treatment_type}
+                                value={editedRecord.treatment_type || ''} // Use editedRecord instead of entry
                                 fullWidth
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>,
@@ -239,7 +239,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                         </Grid>
                         <TextField
                           label="assessment_content"
-                          value={entry.assessment_content}
+                          value={editedRecord.assessment_content}
                           fullWidth
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             handleInputChange(
@@ -250,7 +250,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                         />
                         <TextField
                           label="treatment_content"
-                          value={entry.treatment_content}
+                          value={editedRecord.treatment_content}
                           fullWidth
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             handleInputChange(
@@ -263,7 +263,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                           <Grid item xs={3}>
                             <TextField
                               label="cash_fees"
-                              value={entry.cash_fees}
+                              value={editedRecord.cash_fees}
                               fullWidth
                               onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
@@ -275,11 +275,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                           <Grid item xs={3}>
                             <TextField
                               label="prepaid"
-                              value={
-                                entry.prepaid
-                                  ? 'Yes'
-                                  : 'No'
-                              }
+                              value={editedRecord.prepaid ? 'Yes' : 'No'}
                               fullWidth
                               onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
@@ -289,7 +285,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
                         </Grid>
                         <TextField
                           label="remarks"
-                          value={entry.remarks}
+                          value={editedRecord.remarks}
                           fullWidth
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             handleInputChange('remarks', e.target.value)
@@ -326,7 +322,6 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
               )}
             </TableBody>
           </Table>
-         
         </Paper>
       ))}
       <Grid container justifyContent="center">
