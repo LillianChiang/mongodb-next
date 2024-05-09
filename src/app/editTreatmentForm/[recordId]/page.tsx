@@ -13,6 +13,7 @@ import {
   Typography,
   Snackbar,
   FormControl,
+  TableHead,
 } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Entry, Record } from './RecordTypes';
@@ -108,6 +109,7 @@ const ViewRecord: React.FC<RecordDetailsProps> = ({ params }) => {
       <Typography variant="h4" style={{ marginTop: 10, marginBottom: 10 }}>
         Record Details
       </Typography>
+     
       {currentEntries.map((entry: Entry, index: number) => (
         <Paper
           key={index}
